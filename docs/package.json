@@ -1,0 +1,21 @@
+{
+  "name": "minimal-apis",
+  "version": "0.0.1",
+  "description": "Building APIs with C#",
+  "main": "index.js",
+  "authors": {
+    "name": "Maria Naggaga",
+    "email": "maria.naggaga@live.ca"
+  },
+  "repository": "https://github.com/Minimal-APIs/documentation/minimal-apis",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.8.2",
+    "@vuepress/plugin-medium-zoom": "^1.8.2",
+    "vuepress": "^1.5.3"
+  }
+}

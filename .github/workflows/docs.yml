@@ -26,22 +26,22 @@ jobs:
       # cache node_modules
       - name: Cache dependencies
         uses: actions/cache@v2
-        id: yarn-cache
+        id: npm-cache
         with:
           path: |
             **/node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
       # install dependencies if the cache did not hit
       - name: Install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm --frozen-lockfile
 
       # run build script
       - name: Build VuePress site
-        run: yarn docs:build
+        run: npm docs:build
 
       # please check out the docs of the workflow for more details
       # @see https://github.com/crazy-max/ghaction-github-pages

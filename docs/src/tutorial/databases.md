@@ -2,7 +2,9 @@
 
 ## Working with Databases
 
-We just learned how to build a basic [CRUD](CRUD.md) application with an in-memory database. Now, we are going to step it up notch work with a persistent database. For this tutorial we will be using [SQLite database](https://www.sqlite.org/index.html) but, you may use on that works better for you. 
+We just learned how to build a basic [CRUD](CRUD.md) application with an in-memory database. Now, we are going to step it up notch and work with a persistent database. Meaning your data will be saved even after you shut down your application.
+
+ For this tutorial we will be using [SQLite database](https://www.sqlite.org/index.html) but, you may use on that works better for you. 
 
 ### Learn checklist Three ✔️
 - Setup SQLite database
@@ -36,30 +38,60 @@ TodoApi>dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.0-
 
 ## Enable database creation
 
-We need to create a `Todo.db` with SQLite.
+In order to enable database creation they are couple of steps we need to complete:
+1.  Set the database connection string.
+2.  Migrate your data model *(see below)* to a SQLite database.
+**Create a data model** 
+```cs
+class TodoItem
+{
+    public int Id { get; set; }
+    public string? Item { get; set; }
+    public bool IsComplete { get; set; }
 
-Notes 
-- Set connection string 
+}
+```
+3. Create your database and schema 
+
+
+## Set connection string 
+
+In `Program.cs` below your app builder `var builder = WebApplication.CreateBuilder(args);` add a connection string.
+
 ```cs 
 var connectionString = builder.Configuration.GetConnectionString("todos") ?? "Data Source=todos.db";
 ```
-- Add this code to build services
+
+## Add your context to your services
+
+In the CRUD portion of this tutorial, we used an in-memory database. Now we are going to replace the in-memory database with a persistent database. 
+
+Replace your current in-memory database implementation `builder.Services.AddDbContext<TodoDb>(options => options.UseInMemoryDatabase("items"));` in your build services with the SQLite one below: 
+
 ```cs 
 builder.Services.AddSqlite<TodoDb>(connectionString);
 ```
+## Migrate data model
 
-Delete the in memory database reference 
+With EF Core migration tool, you can now start your first migration `InitialCreate`.  In a terminal window, run the `migrations` command below:
 
-```cs
-builder.Services.AddDbContext<TodoDb>( options => options.UseInMemoryDatabase("items"));
+```console 
+TodoApi> dotnet ef migrations add InitialCreate
 ```
 
-### Setup EF Install the following tool
+EF Core will create a folder called Migrations in your project directory containing two files *(see image below)*
 
-- Install the following tools 
+![image](https://user-images.githubusercontent.com/2546640/128618497-8de76c16-cd38-48a8-9704-599c15d115f0.png)
 
-`dotnet tool install --global dotnet-ef`
+## Create your database and schema
+Now that you have completed the migration, you can use it to create your database and schema. In a terminal window, run the `database update` command below to apply migrations to a database:
 
-`dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.0-preview.5.21301.9`
+```console 
+TodoApi> dotnet ef database update
+```
+You should see a newly created `todos.db` file in your project directory *(see image below)*
 
-- Setup EF migration: explain what migration 
+![image](https://user-images.githubusercontent.com/2546640/128619644-e35bce93-0a87-4367-8790-0d09e837ba97.png)
+
+Your persistent database is set up! Happy coding  😺 
+

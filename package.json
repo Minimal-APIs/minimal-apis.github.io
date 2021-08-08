@@ -4,8 +4,8 @@
   "description": "Building APIs with C#",
   "main": "index.js",
   "authors": {
-    "name": "Maria Naggaga",
-    "email": "maria.naggaga@live.ca"
+    "name": "minimal apis",
+    "email": "minimal.apis@hey.com"
   },
   "repository": "https://github.com/Minimal-APIs/documentation/minimal-apis",
   "scripts": {

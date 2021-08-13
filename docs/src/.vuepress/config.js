@@ -60,6 +60,13 @@ module.exports = {
           ]
         }
       ],
+      '/docs/': [
+        {
+          title: 'Quick Start',
+          collapsable: false,
+          children: ['','quickstart']
+        }
+      ],
     }
   },
 

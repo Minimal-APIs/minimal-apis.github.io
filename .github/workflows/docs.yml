@@ -34,4 +34,4 @@ jobs:
         # this might change depending on whether you are publishing a site for a normal repo or a user/organization repo
         branch: gh-pages
         force: true
-        directory: ./docs/.vuepress/dist
+        directory: ./docs/src/.vuepress

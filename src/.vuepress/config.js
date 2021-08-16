@@ -40,7 +40,7 @@ module.exports = {
     nav: [
       {
         text: "Documentation",
-        link: "/docs/",
+        link: "/quickstart/",
       },
       {
         text: "Tutorial",
@@ -59,7 +59,7 @@ module.exports = {
           children: ["", "first-steps", "crud", "databases"],
         },
       ],
-      "/docs/": [
+      "/quickstart/": [
         {
           title: "Quick Start",
           collapsable: false,

@@ -2,7 +2,7 @@
 home: true
 tagline: Building APIs with C#
 actionText: Quick Start →
-actionLink: /guide/
+actionLink: /quickstart/
 features:
 - title: Minimalism First
   details: Go from idea to application fast. All the features of C# web applications without the ceremony.

@@ -1,5 +1,5 @@
 
-# Quick Start with minimal server apps in c#
+#Minimal server apps in c#
 
 This page is designed to get you a good introduction to doing common tasks with a little C#.
 

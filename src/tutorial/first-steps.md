@@ -2,11 +2,12 @@
 
 Before you can start building a minimal API, please install the following:
 - [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet)
-- An editor of your choice for example [VS Code]() or [Visual Studio]()
+- An editor of your choice for example [VS Code](https://code.visualstudio.com/) or [Visual Studio](https://visualstudio.microsoft.com/)
 
 ## Create 
 
 **dotnet cli**
+
 
 `dotnet new web -o TodoApi`
 

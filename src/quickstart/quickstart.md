@@ -36,7 +36,7 @@ app.Run();
 ```
 **What have we built?**
 
-In a four lines of code
+In  four lines of code
 
 1. **`var builder = WebApplication.CreateBuilder(args);`**
  

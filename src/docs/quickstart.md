@@ -5,6 +5,10 @@ This page is designed to get you a good introduction to doing common tasks with 
 
 If you want to follow along with the steps here then you first need to install the [.NET SDK](https://dotnet.microsoft.com/download/dotnet).
 
+Before you can follow along with the minimal server quick start, please install the following:
+- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet)
+- An editor of your choice for example [VS Code](https://code.visualstudio.com/) or [Visual Studio](https://visualstudio.microsoft.com/)
+
 Once you have done that, open a terminal such as PowerShell, Command Prompt, or bash. Run the following command to create your first app:
 ```bash
 dotnet new web --output minimalapp
@@ -18,6 +22,8 @@ This will create a new directory with a few files to get you started:
 
 ## Your app
 
+Getting to know your app. 
+
 The app in your _Program.cs_ looks like this:
 
 ```csharp
@@ -28,25 +34,36 @@ app.MapGet("/", () => "Hello World!");
 
 app.Run();
 ```
+**What have we built?**
 
 In a few lines of C#:
 
+**`var builder = WebApplication.CreateBuilder(args);`**
 1. You create an app builder, which is used to configure the app. In this default example you aren't doing any configuration yet, so just build an `app` object. You use the builder to create an app and then you run the app, this is known as the builder pattern.
-1. Build the `app` object, the `app` object is what we will use to route URLs to code.
-1. You call `MapGet`, which is how you route URLs to code.
-1. Finally, `app.Run` executes the app you configured in the previous lines. It's not until you call `Run` that your app will start and you can browse to URLs.
+
+**`var app = builder.Build();`**
+
+2. Build the `app` object, the `app` object is what we will use to route URLs to code.
+
+**`app.MapGet("/", () => "Hello World!");`**
+
+3. You call `MapGet`, which is how you route URLs to code.
+
+**`app.Run();`**
+
+4. Finally, `app.Run` executes the app you configured in the previous lines. It's not until you call `Run` that your app will start and you can browse to URLs.
 
 ## Running your app
 
 To run your app, use the `dotnet run` command on your terminal in the same directory as the _Program.cs_ file.
 
-```
+```console
 dotnet run
 ```
 
 After running you will see log output like the following:
 
-```
+``` console
 info: Microsoft.Hosting.Lifetime[14]
       Now listening on: https://localhost:5001
 info: Microsoft.Hosting.Lifetime[14]
@@ -99,7 +116,7 @@ You can specify the type of a variable by doing `/hello/{name:int}` which would 
 
 ## HTTP Methods
 
-So far we've shown `MapGet` which allows you to specify a HTTP Get action, which is what a browser sends when you go to a URL. But there are other HTTP methods you are likely to want and you can use other Map methods to get those, for example `MapPost` or `MapPut`. The other Map methods work the same as `MapGet` that we've already seen but responds to a post or put respectively. You can learn more about [HTTP verbs here](). For now, think of using `Post` when sending data to the app and `Get` when getting data from the app.
+So far we've shown `MapGet` which allows you to specify a HTTP Get action, which is what a browser sends when you go to a URL. But there are other HTTP methods you are likely to want and you can use other Map methods to get those, for example `MapPost` or `MapPut`. The other Map methods work the same as `MapGet` that we've already seen but responds to a post or put respectively. You can learn more about [HTTP request methods here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods). For now, think of using `Post` when sending data to the app and `Get` when getting data from the app.
 
 ```csharp
 app.MapGet("/hello", () => "Hello World!");
@@ -128,7 +145,7 @@ and the following will appear in the terminal that I run `dotnet run` in:
 Both of these give you an idea of what's wrong, in this case that I tried to turn a string that isn't a number into an `int`.
 
 ## Environments
-In the screenshot above you can see the terminal output saying `Hosting environment: Development`. This is controlled by the environment variable `ASPNETCORE_ENVIRONMENT`. If the `ASPNETCORE_ENVIRONMENT` is not set then ASP.NET Core assumes the value is `Production`, when ising `dotnet run` or editors like VS Code or Visual Studio they will set the value to `Development`.
+In the screenshot above you can see the terminal output saying `Hosting environment: Development`. This is controlled by the environment variable `ASPNETCORE_ENVIRONMENT`. If the `ASPNETCORE_ENVIRONMENT` is not set then ASP.NET Core assumes the value is `Production`, when using `dotnet run` or editors like VS Code or Visual Studio they will set the value to `Development`.
 
 The error handling page we showed above only appears when the environment is `Development`. You can check the environment value yourself like this:
 

@@ -1,7 +1,7 @@
 name: deploy to gh-pages
 on:
   push:
-    branches: [ live ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:

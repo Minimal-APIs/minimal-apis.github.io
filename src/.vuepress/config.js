@@ -37,6 +37,9 @@ module.exports = {
     lastUpdated: false,
     logo: "logo.png",
     smoothScroll: true,
+    markdown: {
+      lineNumbers: true
+    },
     nav: [
       {
         text: "Documentation",

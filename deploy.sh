@@ -17,11 +17,11 @@ git add -A
 git commit -m 'deploy'
 
 # if you are deploying to https://minimal-apis.github.io/
-#git push -f Minimal-APIs/minimal-apis.github.io.git main
-git push origin gh-pages --force
+git push -f minimal-api@github.com Minimal-APIs/minimal-apis.github.io.git main
+
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-#git push -f git@github.com Minimal-APIs/minimal-apis.github.io.git main:gh-pages
-git checkout main
+git push -f minimal-api@github.com Minimal-APIs/minimal-apis.github.io.git main:gh-pages
+
 
 cd -

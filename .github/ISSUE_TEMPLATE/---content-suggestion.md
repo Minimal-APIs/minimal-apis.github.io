@@ -9,7 +9,7 @@ assignees: ''
 
 What would you like see:
 [ ] Documentation
-[ ] Sample 
-[ ] Tutorial 
+[ ] Sample
+[ ] Tutorial
 
-What kind of content are you lookint for ?
+What kind of content are you looking for ?

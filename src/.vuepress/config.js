@@ -1,5 +1,7 @@
 const { description } = require('../../package')
-
+export default defineConfig({
+  base:'https://github.com/Minimal-APIs/minimal-apis.github.io',
+})
 module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title

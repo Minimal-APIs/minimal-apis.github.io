@@ -12,7 +12,7 @@ features:
   details: Add a tag line
 - title: C# Ecosystem
   details: Add a tag line
-footer: Minimal APIs made for you with ❤️ from C# 
+footer: Minimal APIs made for you with ❤️ from C#.
 ---
 ---
 ## Features

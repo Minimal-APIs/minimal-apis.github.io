@@ -12,7 +12,7 @@ We just learned how to build a basic [CRUD](CRUD.md) application with an in-memo
 - Perform SQLite CRUD operation from our todo api
 
 ## Setup SQLite database
-**Setup SQLite Database using Entity Framework Core(EF Core)***
+**Setup SQLite Database using Entity Framework Core(EF Core)**
 
 **Install the following tools and packages**
 
@@ -20,19 +20,19 @@ Using .NET CLI / Visual Studio package manager UI, install the following package
 
 **[SQLite EF Core Database Provider](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/6.0.0-preview.5.21301.9)** : can access many different databases through plug-in libraries called [database providers](https://docs.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli). The package below is the SQLite database provider for EF Core.
 
-```console
+```sh
 TodoApi>dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 6.0.0-preview.6.21352.1
 ```
 
 **[Entity Framework Core tools ](https://docs.microsoft.com/en-us/ef/core/cli/dotnet)**: tools for Entity Framework Core perform design-time development tasks. For example, they create migrations, apply migrations, and generate code for a model based on an existing database.
 
-```console
+```sh
 TodoApi>dotnet tool install --global dotnet-ef
 ```
 
 **[`Microsoft.EntityFrameworkCore.Design`](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Design/6.0.0-preview.5.21301.9)** : contains all the design-time logic for EF core to create your database.
 
-```console
+```sh
 TodoApi>dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.0-preview.6.21352.1
 ```
 
@@ -75,7 +75,7 @@ builder.Services.AddSqlite<TodoDb>(connectionString);
 
 With EF Core migration tool, you can now start your first migration `InitialCreate`.  In a terminal window, run the `migrations` command below:
 
-```console 
+```sh
 TodoApi> dotnet ef migrations add InitialCreate
 ```
 
@@ -86,7 +86,7 @@ EF Core will create a folder called Migrations in your project directory contain
 ## Create your database and schema
 Now that you have completed the migration, you can use it to create your database and schema. In a terminal window, run the `database update` command below to apply migrations to a database:
 
-```console 
+```sh
 TodoApi> dotnet ef database update
 ```
 You should see a newly created `todos.db` file in your project directory *(see image below)*

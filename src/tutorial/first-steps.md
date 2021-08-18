@@ -76,7 +76,7 @@ You will see the JSON response
 
 In a terminal window 
 
-```console 
+```sh
 TodoApi> dotnet add package Swashbuckle.AspNetCore --version 6.1.4`
 ```
  
@@ -84,7 +84,7 @@ TodoApi> dotnet add package Swashbuckle.AspNetCore --version 6.1.4`
 
 In Visual Studio you can use the Package Manager Console or Manage Nuget Package GUI.
 
-```console
+```sh
 PM> Install-Package Swashbuckle.AspNetCore -Version 6.1.4
 ```
 

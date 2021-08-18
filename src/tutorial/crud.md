@@ -46,7 +46,7 @@ To store the items in the to do list we are going need to install  the Entity Fr
 **Using .NET CLI**
 
 In your terminal window
-```console
+```sh
 TodoApi>dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 5.0.7
 ```
  
@@ -54,7 +54,7 @@ TodoApi>dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 5.0.
 
 In Visual Studio you can use the Package Manager Console or Manager Nuget Package GUI.
 
-```console
+```sh
 PM>Install-Package Microsoft.EntityFrameworkCore.InMemory -Version 5.0.7
 ```
 

@@ -1,15 +1,15 @@
 
-# Minimal server apps in c#
+# Minimal server apps in C#
 
-This page is designed to get you a good introduction to doing common tasks with a little C#.
-
-If you want to follow along with the steps here then you first need to install the [.NET SDK](https://dotnet.microsoft.com/download/dotnet).
+This page is designed to get you a good introduction to doing common tasks with a little C#. If you want to follow along with the steps here then you first need to install the [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet).
 
 Before you can follow along with the minimal server quick start, please install the following:
+
 - [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet)
 - An editor of your choice for example [VS Code](https://code.visualstudio.com/) or [Visual Studio](https://visualstudio.microsoft.com/)
 
 Once you have done that, open a terminal such as PowerShell, Command Prompt, or bash. Run the following command to create your first app:
+
 ```bash
 dotnet new web --output minimalapp
 ```
@@ -22,7 +22,7 @@ This will create a new directory with a few files to get you started:
 
 ## Your app
 
-Getting to know your app. 
+Getting to know your app.
 
 The app in your _Program.cs_ looks like this:
 
@@ -34,23 +34,24 @@ app.MapGet("/", () => "Hello World!");
 
 app.Run();
 ```
+
 **What have we built?**
 
-In  four lines of code
+In four lines of code
 
 1. **`var builder = WebApplication.CreateBuilder(args);`**
- 
- You create an app builder, which is used to configure the app. In this default example you aren't doing any configuration yet, so just build an `app` object. You use the builder to create an app and then you run the app, this is known as the builder pattern.
 
-2. **`var app = builder.Build();`**
+  You create an app builder, which is used to configure the app. In this default example you aren't doing any configuration yet, so just build an `app` object. You use the builder to create an app and then you run the app, this is known as the builder pattern.
 
-Build the `app` object, the `app` object is what we will use to route URLs to code.
+1. **`var app = builder.Build();`**
 
-3. **`app.MapGet("/", () => "Hello World!");`**
+  Build the `app` object, the `app` object is what we will use to route URLs to code.
+
+1. **`app.MapGet("/", () => "Hello World!");`**
 
 You call `MapGet`, which is how you route URLs to code.
 
-4. **`app.Run();`**
+1. **`app.Run();`**
 
 Finally, `app.Run` executes the app you configured in the previous lines. It's not until you call `Run` that your app will start and you can browse to URLs.
 
@@ -58,13 +59,13 @@ Finally, `app.Run` executes the app you configured in the previous lines. It's n
 
 To run your app, use the `dotnet run` command on your terminal in the same directory as the _Program.cs_ file.
 
-```console
+```bash
 dotnet run
 ```
 
 After running you will see log output like the following:
 
-``` console
+```bash
 info: Microsoft.Hosting.Lifetime[14]
       Now listening on: https://localhost:5001
 info: Microsoft.Hosting.Lifetime[14]
@@ -86,7 +87,7 @@ If you haven't changed any code in the _Program.cs_ and your app still fails to 
 
 ## Routes
 
-When building a web applicaiton you typically want to try and create meaningful URLs that execute your code. For example, going to `/hello` returns a hello string and going to `/todos` or `/todolist` shows me all the todo items I have. It doesn't matter what URL you use as long as it makes sense to you and you think it will make sense to your users.
+When building a web application you typically want to try and create meaningful URLs that execute your code. For example, going to `/hello` returns a hello string and going to `/todos` or `/todolist` shows me all the todo items I have. It doesn't matter what URL you use as long as it makes sense to you and you think it will make sense to your users.
 
 In our ASP.NET Core program we use the `Map` methods to create an endpoint that binds a URL to our code:
 
@@ -127,8 +128,8 @@ app.MapPost("/todos", () => Result.Ok());
 
 You will notice that `MapPost` and `MapGet` in this example are using the same URL. That is because the different verbs can all use the same URL and ASP.NET Core will invoke the right code for you. What this allows is for you to create a URL for your todos and use GET to get todos and POST to add a todo.
 
-
 ## Error Handling
+
 If you have an unexpected error in your code then ASP.NET Core automatically tries to show you what went wrong:
 
 ```csharp
@@ -151,16 +152,17 @@ In the screenshot above you can see the terminal output saying `Hosting environm
 The error handling page we showed above only appears when the environment is `Development`. You can check the environment value yourself like this:
 
 ```csharp
-if(app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.MapGet("/OnlyInDev", () => "This can only be accessed when the app is running in development.");
+    app.MapGet("/OnlyInDev",
+        () => "This can only be accessed when the app is running in development.");
 }
 ```
 
-You can set the environment variable to whatever value you want and add whatever logic you like to your app based on the environmnent.
+You can set the environment variable to whatever value you want and add whatever logic you like to your app based on the environment.
 
 ```csharp
-if(app.Environment.EnvironmentName == "TestEnvironment")
+if (app.Environment.EnvironmentName == "TestEnvironment")
 {
     app.MapGet("/OnlyInTestEnvironment", () => "TestEnvironment");
 }
@@ -199,13 +201,14 @@ This code will send the name part of aIf I then use [Thunder Client]() in VS Cod
 ASP.NET will try to create an instance of the class you say you need from any JSON in the `body` of a request. It will also automatically convert any objects you return to JSON, like in our `GET` todos URL above.
 
 ### HttpContext
+
 Another more basic way of accessing information, and data, from a request is using the `HttpContext` object. ASP.NET Core creates a `HttpContext` for each request, and you can access it in your code like this:
 
 ```csharp
 app.MapGet("/hello/{name}", (HttpContext ctx) => $"Hello {ctx.Request.RouteValues["name"]}");
 ```
 
-In this code we are accepting an `HttpContext` and using it to manually access the route value rather than letting ASP.NET Core automatically match it like we did in our exaxmple above. As well as all route values the `HttpContext` has access to all request information, like the body and cookies. You can read from the request property of HttpContext and write to the Response property, which ASP.NET Core does for you in all of the examples before this one.
+In this code we are accepting an `HttpContext` and using it to manually access the route value rather than letting ASP.NET Core automatically match it like we did in our example above. As well as all route values the `HttpContext` has access to all request information, like the body and cookies. You can read from the request property of HttpContext and write to the Response property, which ASP.NET Core does for you in all of the examples before this one.
 
 ## Returning HTML
 If you want to return some HTML rather than processing JSON like we have been so far. ASP.NET Core uses a language called [Razor]() which is a mix of C# and HTML to make authoring UI easier. So we will add Razor to our app:
@@ -231,8 +234,9 @@ class Todo
 
 Then you can create a folder called `Pages` and a file in that folder called `Index.razor` with this content:
 
-```razor
-@page
+```html
+@page "/page/route"
+
 <html>
     <body>
         <div>
@@ -242,7 +246,7 @@ Then you can create a folder called `Pages` and a file in that folder called `In
 </html>
 ```
 
-Then if you run your application and navigatge to `/` you will see your content:
+Then if you run your application and navigate to `/` you will see your content:
 
 ![image](https://user-images.githubusercontent.com/234688/129422595-ad395a02-662f-46a3-beed-5f87cff6c774.png)
 

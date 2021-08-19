@@ -1,5 +1,5 @@
 
-# Minimal server apps in C#
+# Minimal Server apps in C#
 
 This page is designed to get you a good introduction to doing common tasks with a little C#. If you want to follow along with the steps here then you first need to install the [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet).
 
@@ -43,17 +43,17 @@ In four lines of code
 
   You create an app builder, which is used to configure the app. In this default example you aren't doing any configuration yet, so just build an `app` object. You use the builder to create an app and then you run the app, this is known as the builder pattern.
 
-1. **`var app = builder.Build();`**
+2. **`var app = builder.Build();`**
 
   Build the `app` object, the `app` object is what we will use to route URLs to code.
 
-1. **`app.MapGet("/", () => "Hello World!");`**
+3. **`app.MapGet("/", () => "Hello World!");`**
 
-You call `MapGet`, which is how you route URLs to code.
+  You call `MapGet`, which is how you route URLs to code.
 
-1. **`app.Run();`**
+4. **`app.Run();`**
 
-Finally, `app.Run` executes the app you configured in the previous lines. It's not until you call `Run` that your app will start and you can browse to URLs.
+  Finally, `app.Run` executes the app you configured in the previous lines. It's not until you call `Run` that your app will start and you can browse to URLs.
 
 ## Running your app
 

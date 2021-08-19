@@ -15,8 +15,12 @@ features:
 footer: Minimal APIs made for you with ❤️ from C# 
 ---
 ---
+### Great for Microservices
+
+Minimal APIs are great for building microservices for your applications fast. 
 
 ###  C# Ecosystem
+
 Minimal APIs is built using C#. An open-source, modern, object-oriented, and type-safe programming language you'll love.Build an API in C# with just **four lines of code**.
 
 ```csharp
@@ -27,15 +31,11 @@ app.MapGet("/", () => "Hello World!");
 
 app.Run();
 ```
-###  Minimal Routes
+###  Routing 
 Minimal routes by design. Create meaningful low ceremony URLs that execute your code. 
 ```csharp
 app.MapGet("/", () => "Hello World!");
 ```
-###  Made for Microservices
-
-
-
 ::: tip
 For official documentation on C# templates, please see the [Microsoft Docs](https://docs.microsoft.com/dotnet/core/tutorials/top-level-templates).
 :::

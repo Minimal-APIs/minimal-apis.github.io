@@ -1,6 +1,6 @@
 ---
 home: true
-tagline: Build minimal APIs with C#
+tagline: The journey to build minimal APIs with C#
 actionText: Quickstart →
 actionLink: /quickstart/
 features:

@@ -71,7 +71,7 @@ module.exports = {
         {
           title: "Quick Start",
           collapsable: false,
-          children: ["", "quickstart"],
+          children: ["", "quickstart","grpc", "mlnet"],
         },
       ],
     },

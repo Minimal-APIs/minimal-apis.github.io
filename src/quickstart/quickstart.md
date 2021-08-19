@@ -1,4 +1,3 @@
-
 # Minimal Server apps in C#
 
 This page is designed to get you a good introduction to doing common tasks with a little C#. If you want to follow along with the steps here then you first need to install the [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet).

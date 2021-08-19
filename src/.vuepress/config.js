@@ -38,11 +38,11 @@ module.exports = {
     logo: "logo.png",
     smoothScroll: true,
     markdown: {
-      lineNumbers: true
+      lineNumbers: true,
     },
     nav: [
       {
-        text: "Documentation",
+        text: "Quickstart",
         link: "/quickstart/",
       },
       {
@@ -52,6 +52,11 @@ module.exports = {
       {
         text: "Samples",
         link: "https://github.com/Minimal-APIs/documentation",
+      },
+      {
+        text: "Microsoft Docs",
+        link:
+          "https://docs.microsoft.com/dotnet/core/tutorials/top-level-templates",
       },
     ],
     sidebar: {
@@ -64,8 +69,8 @@ module.exports = {
       ],
       "/quickstart/": [
         {
-          title: "Quick Start",
-          collapsable: false,
+          title: "Quickstart",
+          collapsable: true,
           children: ["", "quickstart"],
         },
       ],

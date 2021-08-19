@@ -42,7 +42,7 @@ module.exports = {
     },
     nav: [
       {
-        text: "Documentation",
+        text: "Quickstart",
         link: "/quickstart/",
       },
       {
@@ -52,6 +52,11 @@ module.exports = {
       {
         text: "Samples",
         link: "https://github.com/Minimal-APIs/documentation",
+      },
+      {
+        text: "Microsoft Docs",
+        link:
+          "https://docs.microsoft.com/dotnet/core/tutorials/top-level-templates",
       },
     ],
     sidebar: {

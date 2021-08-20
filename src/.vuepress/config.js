@@ -51,7 +51,7 @@ module.exports = {
       },
       {
         text: "Samples",
-        link: "https://github.com/Minimal-APIs/documentation",
+        link: "https://github.com/Minimal-APIs/samples",
       },
       {
         text: "Microsoft Docs",

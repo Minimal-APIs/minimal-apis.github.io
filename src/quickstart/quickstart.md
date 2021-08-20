@@ -127,7 +127,7 @@ app.MapGet("/oops", () => int.Parse("this is not an integer"));
 
 If you visit the `/oops` route in a browser you'll see this:
 
-![FormatException page](/quickstart-1/formatexception.png)
+![FormatException page.](/quickstart-1/formatexception.png)
 
 Additionally, the following will appear in the terminal that called `dotnet run`:
 
@@ -210,7 +210,7 @@ record Todo(string Item, bool IsComplete = false);
 
 The `POST` code will send the name part of the given `todo` back to the caller. To see this in action, the following is a screen capture from [Thunder Client](https://www.thunderclient.io) in VS Code:
 
-![Example Thunder Client HTTP POST to the '/todos' route](/quickstart-1/thunder-client-example.png)
+![Example Thunder Client HTTP POST to the '/todos' route.](/quickstart-1/thunder-client-example.png)
 
 ASP.NET Core will deserialize the JSON in the `body` of a request to a `Todo` object. It will also automatically convert any objects you return to JSON, like in the `GET` `/todos` route.
 
@@ -244,20 +244,22 @@ app.Run();
 record Todo(string Item, bool IsComplete = false);
 ```
 
-Then you can create a directory called *Pages* and a file named *Index.razor* with this content:
+Then you can create a directory called *Pages* and a file named *Index.cshtml* with this content:
 
 ```html
 @page "/page/route"
 
 <html>
     <body>
-        <p>Hi, from your friends on the .NET team!</p>
+        <p style="font: 3rem monospace; padding: 2rem;">
+            We 💜 Minimal APIs!
+        </p>
     </body>
 </html>
 ```
 
 Then if you run your application and navigate to `/page/route` you will see your content:
 
-![image](https://user-images.githubusercontent.com/234688/129422595-ad395a02-662f-46a3-beed-5f87cff6c774.png)
+![Razor Pages - rendered HTML in the browser.](/quickstart-1/razor-pages.png)
 
-This is because `Index` is the name of the default URL that a browser will try to load. If you called your `.razor` file `SomethingElse.razor` then you would navigate to `/SomethingElse` to see the content.
+This is because `Index` is the name of the default URL that a browser will try to load. If you called your `.cshtml` file `SomethingElse.cshtml` then you would navigate to `/SomethingElse` to see the content.

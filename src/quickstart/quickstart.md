@@ -251,7 +251,7 @@ Then you can create a directory called *Pages* and a file named *Index.cshtml* w
 
 <html>
     <body>
-        <p style="font: 3rem monospace;">
+        <p style="font: 3rem monospace; padding: 2rem;">
             We 💜 Minimal APIs!
         </p>
     </body>

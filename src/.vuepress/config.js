@@ -24,6 +24,10 @@ module.exports = {
     ],
   ],
 
+  markdown: {
+    lineNumbers: true,
+  },
+
   /**
    * Theme configuration, here is the default theme configuration for VuePress.
    *
@@ -37,9 +41,6 @@ module.exports = {
     lastUpdated: false,
     logo: "logo.png",
     smoothScroll: true,
-    markdown: {
-      lineNumbers: true,
-    },
     nav: [
       {
         text: "Quickstart",

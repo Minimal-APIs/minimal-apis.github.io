@@ -98,16 +98,16 @@ If you have two routes the same then your application will still run, but when y
 
 ![image](https://user-images.githubusercontent.com/234688/128390787-b3ab9769-a0c4-4a67-9d16-716bc52b4416.png)
 
-In this image I have to `hello` routes and the framework can't tell which code you want it to run, so it throws an error. Remember that `hello/` and `hello` are the same as far as ASP.NET Core is concerned, the end slash doesn't make them different.
+In this image I have two `hello` routes and the framework can't tell which code you want it to run, so it throws an error. Remember that `hello/` and `hello` are the same as far as ASP.NET Core is concerned, the end slash doesn't make them different.
 :::
 
 ### Constraints
 
-You can specify the type of a route variable by adding a constraint in the placeholder declaration such as: `/hello/{name:int}`. This changes the meaning of the route and navigating to `/hello/David` would not match, however; if you navigate to `/hello/1` that would match. This is because our `name` variable is constrained to be an `int`. There are many built-in types allowed, and even the ability to specific custom constraints. For more information, see [Route Constraints](https://docs.microsoft.com/aspnet/core/fundamentals/routing?view=aspnetcore-5.0#route-constraint-reference).
+You can specify the type of a route variable by adding a constraint in the placeholder declaration such as: `/hello/{name:int}`. This changes the meaning of the route and navigating to `/hello/David` would not match, however; if you navigate to `/hello/1` that would match. This is because our `name` variable is constrained to be an `int`. There are many built-in types allowed, and even the ability to specify custom constraints. For more information, see [Route Constraints](https://docs.microsoft.com/aspnet/core/fundamentals/routing?view=aspnetcore-5.0#route-constraint-reference).
 
 ## HTTP Methods
 
-So far we've shown `MapGet` which allows you to specify an HTTP `GET` action, which is what a browser sends when you go to a URL. But there are other HTTP methods you are likely use, and other `Map` methods for those; such as `MapPost` and `MapPut`. The other `Map` methods work the same as `MapGet` that we've already explored, but respond to an HTTP `POST` or HTTP `PUT` respectively. When you want to send data to the app use `POST` and when you want to get data use `Get`. For more information, see [HTTP request methods here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
+So far we've shown `MapGet` which allows you to specify an HTTP `GET` action, which is what a browser sends when you go to a URL. But there are other HTTP methods you are likely to use, and other `Map` methods for those; such as `MapPost` and `MapPut`. The other `Map` methods work the same as `MapGet` that we've already explored, but respond to an HTTP `POST` or HTTP `PUT` respectively. When you want to send data to the app use `POST` and when you want to get data use `Get`. For more information, see [HTTP request methods here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
 
 ```csharp
 app.MapGet("/hello", () => "Hello World!");

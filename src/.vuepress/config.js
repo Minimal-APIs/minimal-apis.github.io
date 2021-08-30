@@ -82,7 +82,7 @@ module.exports = {
         {
           title: "Guide",
           collapsable: true,
-          children: ["", "routing","static_assets", "middleware", "error_handling", "dependency_injection","database","validation","authentication","openapi"],
+          children: ["", "routing","static_assets", "middleware", "error_handling", "dependency_injection","database","validation","authentication","openapi","deployment"],
         },
       ],
     },

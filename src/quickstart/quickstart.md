@@ -1,6 +1,6 @@
-# Minimal Server apps in C#
+# App overview
 
-This page is designed to get you a good introduction to doing common tasks with a little C#. If you want to follow along with the steps here then you first need to install the [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet).
+This page is designed to give you an introduction to doing common tasks in C# minimal server app. If you want to follow along with the steps here then you first need to install the [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet).
 
 Before you can follow along with the minimal server quick start, please install the following:
 
@@ -84,7 +84,7 @@ If you haven't changed any code in the _Program.cs_ and your app still fails to 
  - If you see an error saying `Couldn't find a project to run` then you are probably in the wrong directory, make sure your terminal is in the right place.
  - If you see an error saying `Failed to bind to address https://127.0.0.1:5001: address already in use` then you probably have another `dotnet run` command running on another terminal window. You can stop that app by pressing `CTRL + C`. You can only have one app listening on a given address on a computer. We will talk about how to change the URL your app is listening on a bit later.
 
-## Routes
+## Basic Routing
 
 When building a web application you typically want to try and create meaningful URLs that execute your code. For example, going to `/hello` returns a hello string and going to `/todos` or `/todolist` shows me all the todo items I have. It doesn't matter what URL you use as long as it makes sense to you and you think it will make sense to your users.
 
@@ -115,7 +115,7 @@ In this image I have to `hello` routes and the framework can't tell which code y
 
 You can specify the type of a variable by doing `/hello/{name:int}` which would mean that the route would no longer match if you navigated to `/hello/David` but would match if you navigate to `/hello/1` because we said that our name variable should be an `int` in the route. These are called [Route Constraints](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-5.0#route-constraint-reference) and allow you to have fine control over what code gets run when users enter different types of URLs.
 
-## HTTP Methods
+## HTTP Methods Overview
 
 So far we've shown `MapGet` which allows you to specify a HTTP Get action, which is what a browser sends when you go to a URL. But there are other HTTP methods you are likely to want and you can use other Map methods to get those, for example `MapPost` or `MapPut`. The other Map methods work the same as `MapGet` that we've already seen but responds to a post or put respectively. You can learn more about [HTTP request methods here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods). For now, think of using `Post` when sending data to the app and `Get` when getting data from the app.
 
@@ -127,7 +127,7 @@ app.MapPost("/todos", () => Result.Ok());
 
 You will notice that `MapPost` and `MapGet` in this example are using the same URL. That is because the different verbs can all use the same URL and ASP.NET Core will invoke the right code for you. What this allows is for you to create a URL for your todos and use GET to get todos and POST to add a todo.
 
-## Error Handling
+## Error Handling Overview
 
 If you have an unexpected error in your code then ASP.NET Core automatically tries to show you what went wrong:
 

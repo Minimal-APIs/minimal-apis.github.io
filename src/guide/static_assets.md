@@ -1,3 +1,3 @@
-# Returning static assets 
+# Returning static assets 🍃
 
 Content coming soon 

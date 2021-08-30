@@ -1,3 +1,3 @@
-# Error handling
+# Error handling 🍃🍃
 
 Content coming soon 

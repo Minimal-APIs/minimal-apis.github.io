@@ -4,6 +4,6 @@
 
 Tutorials and samples for minimal APIs.
 
-- To run the site locally, navigate to mini-docs and run - `npm run dev`.
+- To run the site locally, navigate minimal-apis.github.io to and run - `npm run dev`.
 - To add or update docs, go to `src` folder.
 - To add or update menu items, go to the `src/.vuepress/config.js` file.

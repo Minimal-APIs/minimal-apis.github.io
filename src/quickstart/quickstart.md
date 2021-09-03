@@ -1,6 +1,6 @@
 # Minimal server apps in C#
 
-To follow along with the steps in this quickstart you'll need to install the following:
+To follow along with the steps in this quickstart, you'll need to install the following:
 
 - [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet)
 - An integrated developer environment (IDE) such as, [VS Code](https://code.visualstudio.com/) or [Visual Studio](https://visualstudio.microsoft.com/)
@@ -59,20 +59,20 @@ info: Microsoft.Hosting.Lifetime[0]
 info: Microsoft.Hosting.Lifetime[0]
 ```
 
-If you navigate to `https://localhost:5001` in a browser you will see the text `Hello World!` rendered as plaintext. The request exercises the `"/"` route which is mapped to the `"Hello World!"` code.
+If you navigate to `https://localhost:5001` in a browser, you'll see the text `Hello World!` rendered as plaintext. The request exercises the `"/"` route which is mapped to the `"Hello World!"` code.
 
 ::: details Click here if you see something different
 
-If you haven't changed any code in the _Program.cs_ and your app still fails to run then it is likely a problem with the installation of `dotnet`. But there are a couple of common things you might see:
+If you haven't changed any code in the _Program.cs_ and your app still fails to run, then there's likely a problem with the installation of `dotnet`. But there are a couple of common things you might see:
 
-- If you see an error saying `Couldn't find a project to run` then you are probably in the wrong directory, make sure your terminal is in the right place.
-- If you see an error saying `Failed to bind to address https://127.0.0.1:5001: address already in use` then you probably have another `dotnet run` command running on another terminal window. You can stop that app by pressing `CTRL + C`. You can only have one app listening on a given address on a computer. We will talk about how to change the URL your app is listening on a bit later.
+- If you see an error saying `Couldn't find a project to run`, then you are probably in the wrong directory. Make sure your terminal is in the right place.
+- If you see an error saying `Failed to bind to address https://127.0.0.1:5001: address already in use`, then you probably have another `dotnet run` command running on another terminal window. You can stop that app by pressing `CTRL + C`. You can only have one app listening on a given address on a computer. We will talk about how to change the URL your app is listening on a bit later.
 
 :::
 
 ## Routes
 
-When building a web application you create meaningful URLs that execute your code. For example, going to the `/hello` route returns a "Hello World!" string and going to the `/todos` route returns all the *Todo* items. In our ASP.NET Core app we use the `Map{Verb}` &mdash; where the `{Verb}` is the HTTP verb for the endpoint being mapped to the code:
+When building a web application, you create meaningful URLs that execute your code. For example, going to the `/hello` route returns a "Hello World!" string and going to the `/todos` route returns all the *Todo* items. In your ASP.NET Core app, you should use the `Map{Verb}` &mdash; where the `{Verb}` is the HTTP verb for the endpoint being mapped to the code:
 
 ```csharp
 app.MapGet("/hello", () => "Hello World!");
@@ -94,20 +94,20 @@ app.MapGet("/hello/{name}", (string name) => $"Hello {name}");
 This endpoint will match URLs like `/hello/David` and would return `Hello David`. If you add this method to the ones shown earlier, navigating to `/hello` would return `Hello World!` as the two endpoints have different routes and match differently.
 
 ::: tip NOTE
-If you have two routes the same then your application will still run, but when you try to navigate to those routes you will get an error like similar to the following
+If you have two routes the same then your application will still run, but when you try to navigate to those routes you'll get an error like similar to the following:
 
 ![image](https://user-images.githubusercontent.com/234688/128390787-b3ab9769-a0c4-4a67-9d16-716bc52b4416.png)
 
-In this image I have two `hello` routes and the framework can't tell which code you want it to run, so it throws an error. Remember that `hello/` and `hello` are the same as far as ASP.NET Core is concerned, the end slash doesn't make them different.
+In this image, you have two `hello` routes and the framework can't tell which code you want it to run, so it throws an error. Remember that `hello/` and `hello` are the same as far as ASP.NET Core is concerned. The end slash doesn't make them different.
 :::
 
 ### Constraints
 
-You can specify the type of a route variable by adding a constraint in the placeholder declaration such as: `/hello/{name:int}`. This changes the meaning of the route and navigating to `/hello/David` would not match, however; if you navigate to `/hello/1` that would match. This is because our `name` variable is constrained to be an `int`. There are many built-in types allowed, and even the ability to specify custom constraints. For more information, see [Route Constraints](https://docs.microsoft.com/aspnet/core/fundamentals/routing?view=aspnetcore-5.0#route-constraint-reference).
+You can specify the type of a route variable by adding a constraint in the placeholder declaration such as: `/hello/{name:int}`. This changes the meaning of the route and navigating to `/hello/David` wouldn't match. However, if you navigate to `/hello/1`, that would match. This is because the `name` variable is constrained to be an `int`. There are many built-in types allowed and even the ability to specify custom constraints. For more information, see [Route Constraints](https://docs.microsoft.com/aspnet/core/fundamentals/routing?view=aspnetcore-5.0#route-constraint-reference).
 
 ## HTTP Methods
 
-So far we've shown `MapGet` which allows you to specify an HTTP `GET` action, which is what a browser sends when you go to a URL. But there are other HTTP methods you are likely to use, and other `Map` methods for those; such as `MapPost` and `MapPut`. The other `Map` methods work the same as `MapGet` that we've already explored, but respond to an HTTP `POST` or HTTP `PUT` respectively. When you want to send data to the app use `POST` and when you want to get data use `Get`. For more information, see [HTTP request methods here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
+So far we've shown `MapGet`, which allows you to specify an HTTP `GET` action, which is what a browser sends when you go to a URL. But there are other HTTP methods you are likely to use, and other `Map` methods for those, such as `MapPost` and `MapPut`. The other `Map` methods work the same as `MapGet` that we've already explored, but respond to an HTTP `POST` or HTTP `PUT`, respectively. When you want to send data to the app, use `POST` and when you want to get data use `GET`. For more information, see [HTTP request methods here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
 
 ```csharp
 app.MapGet("/hello", () => "Hello World!");
@@ -115,17 +115,21 @@ app.MapGet("/todos", () => new Todo("Learn about routing"));
 app.MapPost("/todos", () => Result.Ok());
 ```
 
-You will notice that `MapPost` and `MapGet` in this example are using the same URL. That is because the different verbs can all use the same URL and ASP.NET Core will invoke the right code for you. What this allows is for you to create a URL for your todos and use `GET` to get todos and `POST` to add a todo.
+Notice that `MapPost` and `MapGet` in this example are using the same URL. That is because the different verbs can all use the same URL and ASP.NET Core will invoke the right code for you. This allows you to:
+
+- Create a URL for your todos.
+- Use `GET` to get todos.
+- Use `POST` to add a todo.
 
 ## Error Handling
 
-If you have an unexpected error in your code, ASP.NET Core automatically tries to show what went wrong &mdash; considering the following route:
+If you have an unexpected error in your code, ASP.NET Core automatically tries to show what went wrong &mdash; consider the following route:
 
 ```csharp
 app.MapGet("/oops", () => int.Parse("this is not an integer"));
 ```
 
-If you visit the `/oops` route in a browser you'll see this:
+If you visit the `/oops` route in a browser, you'll see this:
 
 ![FormatException page.](/quickstart-1/formatexception.png)
 
@@ -157,13 +161,13 @@ fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
          at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context) in Microsoft.AspNetCore.Diagnostics.dll:token 0x60000aa+0x82
 ```
 
-Both of these give you an idea of what's wrong, in this case that a string which isn't a number cannot be parsed as an `int`.
+Both of these give you an idea of what's wrong. In this case, a string, which isn't a number, cannot be parsed as an `int`.
 
 ## Environments
 
-In the screenshot above you can see the terminal output saying `Hosting environment: Development`. This is controlled by the environment variable `ASPNETCORE_ENVIRONMENT`. If the `ASPNETCORE_ENVIRONMENT` is not set then ASP.NET Core assumes the value is `Production`, when using `dotnet run` or editors like *VS Code* or *Visual Studio* they will set the value to `Development`.
+In the screenshot above, you can see the terminal output saying `Hosting environment: Development`. This is controlled by the environment variable `ASPNETCORE_ENVIRONMENT`. If the `ASPNETCORE_ENVIRONMENT` is not set, then ASP.NET Core assumes the value is `Production`. When using `dotnet run` or editors like *VS Code* or *Visual Studio*, they will set the value to `Development`.
 
-The error handling page we showed above only appears when the environment is `Development`. You can check the environment value yourself like this:
+The error handling page showed above only appears when the environment is `Development`. You can check the environment value yourself like this:
 
 ```csharp
 if (app.Environment.IsDevelopment())
@@ -223,11 +227,11 @@ app.MapGet("/hello/{name}",
     (HttpContext ctx) => $"Hello {ctx.Request.RouteValues["name"]}");
 ```
 
-In this code we are accepting an `HttpContext` and using it to manually access the route value rather than letting ASP.NET Core automatically match it. In addition to the route values, the `HttpContext` has access to all request information, like the body and cookies. You can read from the request property of `HttpContext` and write to the `Response` property, which ASP.NET Core does for you in all of the examples before this one.
+In this code, you are accepting an `HttpContext` and using it to manually access the route value rather than letting ASP.NET Core automatically match it. In addition to the route values, the `HttpContext` has access to all request information, like the body and cookies. You can read from the request property of `HttpContext` and write to the `Response` property, which ASP.NET Core does for you in all of the examples before this one.
 
 ## Returning HTML
 
-If you want to return HTML rather than JSON, you can use Razor syntax. ASP.NET Core uses a language called [Razor](https://docs.microsoft.com/aspnet/core/razor-pages) which is a mix of C# and HTML to make authoring UI easier. To add Razor Pages support:
+If you want to return HTML rather than JSON, you can use Razor syntax. ASP.NET Core uses a language called [Razor](https://docs.microsoft.com/aspnet/core/razor-pages), which is a mix of C# and HTML to make authoring UI easier. To add Razor Pages support:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args)
@@ -258,8 +262,8 @@ Then you can create a directory called *Pages* and a file named *Index.cshtml* w
 </html>
 ```
 
-Then if you run your application and navigate to `/page/route` you will see your content:
+Then if you run your application and navigate to `/page/route`, you should see your content:
 
 ![Razor Pages - rendered HTML in the browser.](/quickstart-1/razor-pages.png)
 
-This is because `Index` is the name of the default URL that a browser will try to load. If you called your `.cshtml` file `SomethingElse.cshtml` then you would navigate to `/SomethingElse` to see the content.
+This is because `Index` is the name of the default URL that a browser will try to load. If you called your `.cshtml` file `SomethingElse.cshtml`, then you'd navigate to `/SomethingElse` to see the content.

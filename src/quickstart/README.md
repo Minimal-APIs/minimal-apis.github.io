@@ -11,6 +11,5 @@ app.MapGet("/", () => "Hello World!");
 
 app.Run();
 ```
+
 We have created a series of quickstarts to get you familiar with minimal APIs.
-
-

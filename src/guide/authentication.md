@@ -1,3 +1,0 @@
-# Authentication 🍃🍃
-
-## Azure Active Directory 

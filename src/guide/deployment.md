@@ -1,5 +1,0 @@
-# Deployment 🍃🍃
-
-## Azure 
-
-## Docker

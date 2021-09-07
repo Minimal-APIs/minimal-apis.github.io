@@ -1,7 +1,7 @@
 # Let's build 
 ## Create Read Update Delete
 
-In checklist one, you built simple API where you hard coded the results to HTTP method. 
+In [checklist one ](/tutorial/first-steps), you built simple API where you hard coded the results to HTTP method. 
 
 For example:  `app.MapGet("/todo", () => new { Item = "Water plants", Complete = "false" });`  has been hard coded to return the JSON results below.
 
@@ -12,9 +12,8 @@ For example:  `app.MapGet("/todo", () => new { Item = "Water plants", Complete =
 }
 ```
 
-In checklist 2 we are going to step it up a notch and create something dynamic. Instead of returning a static item that is hardcoded to our route, we are going to be creating to-do list we can update, create new items, mark an item as complete and delete an item. 
+In checklist 3 we are going to step it up a notch and create something dynamic. Instead of returning a static item that is hardcoded to our route, we are going to be creating to-do list we can update, create new items, mark an item as complete and delete an item. 
 
-### Learn checklist Two ✔️
 Our to-do APIs is going to:
 - Create a new item.➕
 - Return a specific item on a list.  :leftwards_arrow_with_hook:
@@ -40,7 +39,7 @@ Now, that we have defined that data we want to collect we need to save it.
 
 To store the items in the to do list we are going need to install  the Entity Frameworkcore InMemomry package below.
 
-*What is Entity Framework?*  is a code library that enables the transfer of data stored in relational database tables(E.g. SQLite and MySQL, SQL server etc) into objects that are more commonly used in application code. 
+> *What is Entity Framework?*  is a code library that enables the transfer of data stored in relational database tables(E.g. SQLite and MySQL, SQL server etc) into objects that are more commonly used in application code. 
 
 
 **Using .NET CLI**
@@ -50,19 +49,11 @@ In your terminal window
 TodoApi>dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 5.0.7
 ```
  
-**In Visual Studio**
-
-In Visual Studio you can use the Package Manager Console or Manager Nuget Package GUI.
-
-```console
-PM>Install-Package Microsoft.EntityFrameworkCore.InMemory -Version 5.0.7
-```
-
 Add `using Microsoft.EntityFrameworkCore;` to the top of your `Program.cs` file.
 
-Now, that we have EntityFramework we can now wire up our code to the data we want save and query. To do this we are going to create a `TodoDb` class. This class is going to do the following:
+Now, that we have EntityFramework we can now wire up our code to the data we want save and query it. To do this we are going to create a `TodoDb` class. `TodoDb` class is going to do the following:
 
-- To exposed our `Todos` property from our list of `TodoItem` in the database.
+- Expose our `Todos` property from our list of `TodoItem` in the database.
 - `UseInMemoryDatabase` wires the in memory database storage.This will store data as long the app is running.
 
 To setup your in memory database add the following code snippets to our code.
@@ -213,7 +204,7 @@ Now, try deleting an item.
 ![swagger-delete-todos-item](https://user-images.githubusercontent.com/2546640/125184240-2daf6b80-e1ea-11eb-86db-6109bc04f700.gif)
 
 
- ### Learn checklist one ✔️   
+ ### Learn checklist three ✔️   
   
  - Add model class and database context 
   - CRUD methods

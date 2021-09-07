@@ -4,12 +4,7 @@
 
 We just learned how to build a basic [CRUD](CRUD.md) application with an in-memory database. Now, we are going to step it up notch and work with a persistent database. Meaning your data will be saved even after you shut down your application.
 
- For this tutorial we will be using [SQLite database](https://www.sqlite.org/index.html) but, you may use on that works better for you. 
-
-### Learn checklist Three ✔️
-- Setup SQLite database
-- Create a SQLite database
-- Perform SQLite CRUD operation from our todo api
+ For this tutorial we will be using [SQLite database](https://www.sqlite.org/index.html) but, you may use one that works better for you. 
 
 ## Setup SQLite database
 **Setup SQLite Database using Entity Framework Core(EF Core)***
@@ -92,6 +87,11 @@ TodoApi> dotnet ef database update
 You should see a newly created `todos.db` file in your project directory *(see image below)*
 
 ![image](https://user-images.githubusercontent.com/2546640/128619644-e35bce93-0a87-4367-8790-0d09e837ba97.png)
+
+### Learn checklist four ✔️
+- Setup SQLite database
+- Create a SQLite database
+- Perform SQLite CRUD operation from our todo api
 
 Your persistent database is set up! Happy coding  😺 
 

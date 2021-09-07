@@ -47,6 +47,10 @@ module.exports = {
         link: "/quickstart/",
       },
       {
+        text: "Guide",
+        link: "/guide/",
+      },
+      {
         text: "Tutorial",
         link: "/tutorial/",
       },
@@ -63,7 +67,7 @@ module.exports = {
     sidebar: {
       "/tutorial/": [
         {
-          title: "Guide",
+          title: "Tutorial",
           collapsable: false,
           children: ["", "first-steps", "crud", "databases"],
         },
@@ -73,6 +77,13 @@ module.exports = {
           title: "Quickstart",
           collapsable: true,
           children: ["", "quickstart"],
+        },
+      ],
+      "/guide/": [
+        {
+          title: "Guide",
+          collapsable: true,
+          children: ["", "routing" , "static_assets" , "database" , "validation" , "error_handling" , "middleware" , "authentication" , "deployment", "dependency_injection","openapi", ],
         },
       ],
     },

@@ -37,3 +37,27 @@ Minimal routes by design. Create meaningful low ceremony URLs that execute your 
 ```csharp
 app.MapGet("/", () => "Hello World!");
 ```
+### Feels familiar
+
+Minimal code patterns have been popular in JavaScript and Python web frameworks for a while. Whether you are familiar with Express or Flask, we think you can easily do things you enjoy about those frameworks with minimal APIs as well. 
+
+**For example**
+
+Routes in Express 
+```JS
+// GET method route
+app.get('/', function (req, res) {
+  res.send('GET request to the homepage')
+})
+
+// POST method route
+app.post('/', function (req, res) {
+  res.send('POST request to the homepage')
+})
+```
+Routes in minimal APIs 
+```csharp
+app.MapGet("/", () => "GET request to the homepage");
+app.MapPost("/", () => "POST request to the homepage");
+```
+

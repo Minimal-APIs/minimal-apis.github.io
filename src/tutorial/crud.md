@@ -141,7 +141,7 @@ To `GET` an item by `id` add the code below `app.MapPost` route created earlier
 app.MapGet("/todos/{id}", async (TodoDb db, int id) => await db.Todos.FindAsync(id));
 
 ```
-To check this out you can either go to `https://localhost:5001/todos/1` or use the swagger UI.
+To check this out you can either go to `https://localhost:5001/todos/1` or use the Swagger UI.
  ![swagger-get-todos-item](https://user-images.githubusercontent.com/2546640/125182403-bd99e900-e1db-11eb-83bb-72eb89b4386f.gif)
 
 ## Update an item 

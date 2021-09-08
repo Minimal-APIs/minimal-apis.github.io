@@ -90,7 +90,7 @@ You will see the JSON response
 In a terminal window 
 
 ```console 
-TodoApi> dotnet add package Swashbuckle.AspNetCore --version 6.1.4`
+TodoApi> dotnet add package Swashbuckle.AspNetCore --version 6.1.4
 ```
  
 

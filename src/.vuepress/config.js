@@ -69,7 +69,7 @@ module.exports = {
         {
           title: "Tutorial",
           collapsable: false,
-          children: ["", "first-steps", "crud", "databases"],
+          children: ["", "first-steps", "crud", "databases", "openapi"],
         },
       ],
       "/quickstart/": [

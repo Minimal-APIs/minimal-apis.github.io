@@ -83,7 +83,7 @@ You will see the JSON response
 
 ### Add Swagger UI to your application 
 
- **Install the Microsoft Open API and Swagger packages.** 
+ **Install the Microsoft OpenAPI and Swagger packages.** 
 
 **Using .NET CLI**
 
@@ -118,9 +118,9 @@ app.UseSwaggerUI(c =>
 });
 ```
 The code snippet above does the following
-- `app.UseSwagger` enables middleware to serve generated Swagger as JSON endpoint. 
-- `app.UseSwaggerUI` enables middle to serve the UI elements.
-- `SwaggerEndpoint` specifies the swagger endpoint.
+- `app.UseSwagger` enables middleware to serve the generated OpenAPI description as JSON content. 
+- `app.UseSwaggerUI` enables middle to serve the Swagger UI elements.
+- `SwaggerEndpoint` specifies the OpenAPI description's endpoint.
 
 Go back to your browser where your app is and navigate to this URL `https://localhost:5001/swagger`
 
@@ -133,7 +133,7 @@ Now, Swagger UI is   setup you can visualize and interact with your API.
 ![swaggertodo](https://user-images.githubusercontent.com/2546640/125180523-0005fa80-e1c9-11eb-885c-46b7bbb9fef3.gif)
 
 ### Learn checklist two ✔️ 
-- Configured and implementing Swagger 
+- Configured and implementing OpenAPI and Swagger UI 
 - Introduced to middleware and dependency injection.
 
 

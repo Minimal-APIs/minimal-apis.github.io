@@ -23,6 +23,9 @@ module.exports = {
       { name: "apple-mobile-web-app-status-bar-style", content: "black" },
     ],
   ],
+  plugins: [
+    ['@vuepress/plugin-google-analytics', { ga: 'G-1JBB6MLLED' }],
+  ],
 
   markdown: {
     lineNumbers: true,

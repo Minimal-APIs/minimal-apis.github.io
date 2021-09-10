@@ -43,6 +43,10 @@ module.exports = {
     smoothScroll: true,
     nav: [
       {
+        text: "Meet Minimal",
+        link: "/meet-minimal/",
+      },
+      {
         text: "Quickstart",
         link: "/quickstart/",
       },

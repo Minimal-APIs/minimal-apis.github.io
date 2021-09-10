@@ -1,10 +1,8 @@
 # Minimal APIs in C#
 
-## WebApplication
-
 ### Creating an application
 
-```C#
+```csharp
 var app = WebApplication.Create(args);
 
 app.MapGet("/", () => "Hello World");
@@ -16,7 +14,7 @@ This listens to port http://localhost:5000 and https://localhost:5001 by default
 
 ### Changing the port
 
-```C#
+```csharp
 var app = WebApplication.Create(args);
 
 app.MapGet("/", () => "Hello World");
@@ -26,7 +24,7 @@ app.Run("http://localhost:3000");
 
 ### Multiple ports
 
-```C#
+```csharp
 var app = WebApplication.Create(args);
 
 app.Urls.Add("http://localhost:3000");
@@ -39,7 +37,7 @@ app.Run();
 
 ### Reading the port from environment
 
-```C#
+```csharp
 var app = WebApplication.Create(args);
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "3000";
@@ -51,7 +49,7 @@ app.Run($"http://localhost:{port}");
 
 ### HTTPS with development certificate
 
-```C#
+```csharp
 var app = WebApplication.Create(args);
 
 app.Urls.Add("https://localhost:3000");
@@ -63,7 +61,7 @@ app.Run();
 
 ### HTTPS with custom certificate
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure the cert and the key
@@ -81,7 +79,7 @@ app.Run();
 
 ### Reading the environment
 
-```C#
+```csharp
 var app = WebApplication.Create(args);
 
 if (!app.Environment.IsDevelopment())
@@ -97,7 +95,7 @@ app.Run();
 
 ### Reading configuration
 
-```C#
+```csharp
 var app = WebApplication.Create(args);
 
 Console.WriteLine($"The configuration value is {app.Configuration["key"]}");
@@ -107,7 +105,7 @@ app.Run();
 
 ### Logging
 
-```C#
+```csharp
 var app = WebApplication.Create(args);
 
 app.Logger.LogInformation("The application started");
@@ -119,7 +117,7 @@ app.Run();
 
 ### Changing the content root, application name and environment
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
     ApplicationName = typeof(Program).Assembly.FullName,
@@ -150,7 +148,7 @@ OR via command line arguments:
 
 ### Adding configuration providers
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddIniFile("appsettings.ini");
@@ -166,7 +164,7 @@ By default the `WebApplicationBuilder` reads configuration from:
 - environment variables
 - The command line
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Reads the ConnectionStrings section of configuration and looks for a sub key called Todos
@@ -179,7 +177,7 @@ var app = builder.Build();
 
 ### Reading the environment
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsDevelopment())
@@ -192,7 +190,7 @@ var app = builder.Build();
 
 ### Adding logging providers
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure JSON logging to the console
@@ -203,7 +201,7 @@ var app = builder.Build();
 
 ### Adding services
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Add the memory cache services
@@ -219,7 +217,7 @@ var app = builder.Build();
 
 Existing extension methods on `IHostBuilder` can be accessed using the `Host` property.
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Wait 30 seconds for graceful shutdown
@@ -232,7 +230,7 @@ var app = builder.Build();
 
 Existing extension methods on `IWebHostBuilder` can be accessed using the `WebHost` property.
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Change the HTTP server implemenation to be HTTP.sys based
@@ -246,7 +244,7 @@ var app = builder.Build();
 By default, the web root is relative to the content root in the `wwwroot` folder. This is where the static files
 middleware expects to find static files. You can change this by using the `UseWebRoot` method on the `WebHost` property:
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Look for static files in webroot
@@ -259,7 +257,7 @@ var app = builder.Build();
 
 This example uses [Autofac](https://autofac.readthedocs.io/en/latest/integration/aspnetcore.html)
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
@@ -276,7 +274,7 @@ var app = builder.Build();
 
 Any existing ASP.NET Core middleware can be configured on the WebApplication:
 
-```C#
+```csharp
 var app = WebApplication.Create(args);
 
 // Setup the file server to serve static files
@@ -289,7 +287,7 @@ app.Run();
 
 The WebApplication has a the developer exception enabled by default when the environment is development:
 
-```C#
+```csharp
 var app = WebApplication.Create(args);
 
 app.MapGet("/", () => { throw new InvalidOperationException(); });
@@ -324,7 +322,7 @@ TODO: Add image
 
 You can route to handlers using the various Map* methods on `WebApplication`. There's a `Map{HTTPMethod}` method to allow handling different HTTP methods:
 
-```C#
+```csharp
 app.MapGet("/", () => "This is a GET");
 app.MapPost("/", () => "This is a POST");
 app.MapPut("/", () => "This is a PUT");
@@ -333,7 +331,7 @@ app.MapDelete("/", () => "This is a DELETE");
 
 Other HTTP methods:
 
-```C#
+```csharp
 app.MapMethods(new [] { "OPTIONS", "HEAD" }, () => "This is an options or head request ");
 ```
 
@@ -341,7 +339,7 @@ app.MapMethods(new [] { "OPTIONS", "HEAD" }, () => "This is an options or head r
 
 You can capture route parameters as part of the route pattern definition:
 
-```C#
+```csharp
 app.MapGet("/users/{userId}/books/{bookId}", (int userId, int bookId) => $"The user id is {userId} and book id is {bookId}");
 ```
 
@@ -362,7 +360,7 @@ Microsoft.AspNetCore.Http.BadHttpRequestException: Failed to bind parameter "int
 
 ### Wildcards/Catch all routes
 
-```C#
+```csharp
 app.MapGet("/posts/{rest*}", (string rest) => $"Routing to {rest}");
 ```
 
@@ -370,7 +368,7 @@ app.MapGet("/posts/{rest*}", (string rest) => $"Routing to {rest}");
 
 Route constraints are influence the matching behavior of a route.
 
-```C#
+```csharp
 app.MapGet("/todos/{id:int}", (int id) => db.Todos.Find(id));
 app.MapGet("/todos/{text}", (string text) => db.Todos.Where(t => t.Text.Contains(text));
 app.MapGet("/posts/{slug:regex(^[a-z0-9_-]+$)}", (string slug) => $"Post {slug}");
@@ -412,7 +410,7 @@ Paramter binding is the process of turning request data into strongly typed para
 
 ### GET, HEAD, OPTIONS, DELETE
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Added as service
@@ -432,7 +430,7 @@ class Service { }
 
 ### Other verbs (POST, PUT, PATCH, etc)
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Added as service
@@ -454,7 +452,7 @@ record Person(string Name, int Age);
 
 Attributes can be used to explicitly declare where parameters should be bound from.
 
-```C#
+```csharp
 using Microsoft.AspNetCore.Mvc;
 
 app.MapGet("/{id}", ([FromRoute]int id, 
@@ -476,19 +474,19 @@ Binding from form values is not supported at this time.
 
 Paramters declared in route handlers will be treated as required. This means if a request matches the route, the route handler will only execute if all required paramters are provided in the request. Failure to do so will result in an error.
 
-```C#
+```csharp
 app.MapGet("/products", (int pageNumber) => $"Requesting page {pageNumber}");
 ```
 
 Since the `pageNumber` paramter is required, this route handler won't execute if the query string `pageNumber` isn't provided. To make it optional define the type as nullable.
 
-```C#
+```csharp
 app.MapGet("/products", (int? pageNumber) => $"Requesting page {pageNumber ?? 1}");
 ```
 
 This also works with methods that have a default value:
 
-```C#
+```csharp
 string ListProducts(int pageNumber = 1) => $"Requesting page {pageNumber}";
 
 app.MapGet("/products", (int? pageNumber) => ListProducts);
@@ -498,7 +496,7 @@ The above will default to 1 if the pageNumber isn't specified in the query strin
 
 This logic applies to all sources.
 
-```C#
+```csharp
 app.MapPost("/products", (Product? product) => () => { });
 ```
 
@@ -525,14 +523,14 @@ There are 2 ways to customize parameter binding:
 
 The TryParse method must be of the form(s):
 
-```C#
+```csharp
 public static bool TryParse(string value, T out result);
 public static bool TryParse(string value, IFormatProvider provider, T out result);
 ```
 
 **Example**
 
-```C#
+```csharp
 app.MapGet("/map/{point}", (Point point) => $"Point: {point.X}, {point.Y}");
 
 public class Point
@@ -569,13 +567,13 @@ Point: 12.3,10.1
 
 The `BindAsync` method must be of the form:
 
-```C#
+```csharp
 public static ValueTask<T?> BindAsync(HttpContext context, ParameterInfo parameter);
 ```
 
 **Example**
 
-```C#
+```csharp
 app.MapGet("/products", (PagingData pageData) => $"SortBy:{pageData.SortBy}, SortDirection:{pageData.SortDirection}, CurrentPage:{pageData.CurrentPage}");
 
 public class PagingData
@@ -640,7 +638,7 @@ The rules for determining a binding source from a parameter are as follows:
 
 The following example uses the built in result types to customize the response:
 
-```C#
+```#csharp
 app.MapGet("/todos/{id}", (int id, TodoDb db) => 
     db.Todos.Find(id) is Todo todo 
         ? Results.Ok(todo)
@@ -650,25 +648,25 @@ app.MapGet("/todos/{id}", (int id, TodoDb db) =>
 
 ### JSON
 
-```C#
+```#csharp
 app.MapGet("/hello", () => Results.Json(new { Message = "Hello World" }));
 ```
 
 ### Custom Status Code
 
-```C#
+```#csharp
 app.MapGet("/405", () => Results.StatusCode(405));
 ```
 
 ### Text
 
-```C#
+```#csharp
 app.MapGet("/text", () => Results.Text("This is some text"));
 ```
 
 ### Stream
 
-```C#
+```#csharp
 var proxyClient = new HttpClient();
 app.MapGet("/pokemon", async () => 
 {
@@ -680,13 +678,13 @@ app.MapGet("/pokemon", async () =>
 
 ### Redirect
 
-```C#
+```#csharp
 app.MapGet("/old-path", () => Results.Redirect("/new-path"));
 ```
 
 ### File
 
-```C#
+```#csharp
 app.MapGet("/download", () => Results.File("foo.text"));
 ```
 
@@ -714,26 +712,26 @@ Write a JSON response with advanced options |application/json |200|`Results.Json
 
 Routes can be protected using authorization policies. These can be declared via the authorize attribute or by using the `RequireAuthorization` method call.
 
-```C#
+```#csharp
 app.MapGet("/auth", [Authorize] () => "This endpoint requires authorization");
 ```
 
 OR
 
-```C#
+```#csharp
 app.MapGet("/auth", () => "This endpoint requires authorization")
    .RequireAuthorization();
 ```
 
 Authorization policies can be configured as well:
 
-```C#
+```#csharp
 app.MapGet("/auth", [Authorize("AdminsOnly")] () => "This endpoint requires authorization");
 ```
 
 OR
 
-```C#
+```#csharp
 app.MapGet("/auth", () => "This endpoint requires authorization")
    .RequireAuthorization("AdminsOnly");
 ```

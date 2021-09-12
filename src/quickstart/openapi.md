@@ -72,6 +72,6 @@ dotnet watch run
 
 Using the default configuration, the Swagger UI test page is now available at `https://localhost:5001/swagger`. 
 
-![Swagger UI](/public/openapi/swagger-ui.png)
+![Swagger UI](https://github.com/bradygaster/minimal-apis.github.io/blob/bradyg/openapi-doc/src/.vuepress/public/openapi/swagger-ui.png?raw=true)
 
 

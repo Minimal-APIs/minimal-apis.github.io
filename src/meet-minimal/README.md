@@ -1,4 +1,6 @@
-# Minimal APIs in C#
+# Minimal APIs
+
+## WebApplication
 
 ### Creating an application
 
@@ -84,7 +86,7 @@ var app = WebApplication.Create(args);
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/error");
+    app.UseExceptionHandler("/oops");
 }
 
 app.MapGet("/", () => "Hello World");
@@ -297,9 +299,7 @@ app.Run();
 
 Navigating to `/` will render a friendly page that shows the exception.
 
-TODO: Add image
-
-### Built in Middleware
+### ASP.NET Core Middleware
 
 |Middleware	|Description|API|
 |--|--|--|
@@ -332,8 +332,88 @@ app.MapDelete("/", () => "This is a DELETE");
 Other HTTP methods:
 
 ```csharp
-app.MapMethods(new [] { "OPTIONS", "HEAD" }, () => "This is an options or head request ");
+app.MapMethods("/options-or-head", new [] { "OPTIONS", "HEAD" }, () => "This is an options or head request ");
 ```
+
+### Route Handlers
+
+Route handlers are methods that execute when the a route matches. Route handlers can be a function or any shape (including synchronous or asynchronous). It can be a lambda expression, a local function,
+an instance method or a static method.
+
+**Lambda expression**
+
+```csharp
+app.MapGet("/", () => "This is an inline lambda");
+
+var handler = () => "This is a lambda variable";
+
+app.MapGet("/", handler);
+```
+
+**Local function**
+
+```csharp
+string LocalFunction() => "This is local function"
+
+app.MapGet("/", LocalFunction);
+```
+
+**Instance method**
+
+```csharp
+var handler = new HelloHandler();
+
+app.MapGet("/", handler.Hello);
+
+class HelloHandler
+{
+    public string Hello() 
+    {
+        return "Hello World";
+    }
+}
+```
+
+**Static method**
+
+```csharp
+app.MapGet("/", HelloHandler.Hello);
+
+class HelloHandler
+{
+    public static string Hello() 
+    {
+        return "Hello World";
+    }
+}
+```
+
+This provides the appropriate flexiblity when deciding how to organize your route handlers.
+
+### Naming routes and link generation
+
+Routes can be given names in order to generate URLs to them. This avoids having to hard code paths in your application.
+
+```csharp
+app.MapGet("/hello", () => "Hello there")
+   .WithName("hi");
+
+app.MapGet("/", (LinkGenerator linker) => $"The link to the hello route is {linker.GetPathByName("hi", values: null)}");
+```
+
+Route names are inferred from method names if specified:
+
+```csharp
+string Hi() => "Hello there";
+
+app.MapGet("/hello", Hi);
+
+app.MapGet("/", (LinkGenerator linker) => $"The link to the hello route is {linker.GetPathByName("Hi", values: null)}");
+```
+
+**NOTE: Route names are case sensitive!**
+
+These names must be globally unique and are also used as the OpenAPI operation id when OpenAPI support is enabled (see the OpenAPI/Swagger section for more details).
 
 ### Route Parameters
 
@@ -406,9 +486,21 @@ app.MapGet("/posts/{slug:regex(^[a-z0-9_-]+$)}", (string slug) => $"Post {slug}"
 
 ## Parameter Binding
 
-Paramter binding is the process of turning request data into strongly typed parameters that are expressed by route handlers. A binding source determines where parameters are bound from. Binding sources can be explict or inferred based HTTP method and parameter type.
+Parameter binding is the process of turning request data into strongly typed parameters that are expressed by route handlers. A binding source determines where parameters are bound from. Binding sources can be explict or inferred based HTTP method and parameter type.
+
+Supported binding sources:
+- Route values
+- Query string
+- Header
+- Body (as JSON)
+- Services provided by dependency injection
+- Custom
 
 ### GET, HEAD, OPTIONS, DELETE
+
+The HTTP methods GET, HEAD, OPTIONS, DELETE will never bind from body. All other binding sources are supported.
+
+**NOTE: If you need to support the case where you have a GET with a body, you can directly read it from the HttpRequest.**
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -448,7 +540,7 @@ record Person(string Name, int Age);
 |person|body (as JSON)|
 |service|provided by dependency injection|
 
-### Explicit Paramter Binding
+### Explicit Parameter Binding
 
 Attributes can be used to explicitly declare where parameters should be bound from.
 
@@ -456,14 +548,14 @@ Attributes can be used to explicitly declare where parameters should be bound fr
 using Microsoft.AspNetCore.Mvc;
 
 app.MapGet("/{id}", ([FromRoute]int id, 
-                     [FromQuery("p")]int page, 
+                     [FromQuery(Name = "p")]int page, 
                      [FromServices]Service service, 
-                     [FromHeader("Content-Type")]string contentType) => { });
+                     [FromHeader(Name = "Content-Type")]string contentType) => { });
 ```
 
 |Parameter| Binding Source|
 |--|--|
-|id|route with the name id|
+|id|route value with the name id|
 |page|query string with the name `"p"`|
 |service|provided by dependency injection|
 |contentType|header with the name `"Content-Type"`|
@@ -472,7 +564,7 @@ Binding from form values is not supported at this time.
 
 ### Optional parameters
 
-Paramters declared in route handlers will be treated as required. This means if a request matches the route, the route handler will only execute if all required paramters are provided in the request. Failure to do so will result in an error.
+Parameters declared in route handlers will be treated as required. This means if a request matches the route, the route handler will only execute if all required paramters are provided in the request. Failure to do so will result in an error.
 
 ```csharp
 app.MapGet("/products", (int pageNumber) => $"Requesting page {pageNumber}");
@@ -489,7 +581,7 @@ This also works with methods that have a default value:
 ```csharp
 string ListProducts(int pageNumber = 1) => $"Requesting page {pageNumber}";
 
-app.MapGet("/products", (int? pageNumber) => ListProducts);
+app.MapGet("/products", ListProducts);
 ```
 
 The above will default to 1 if the pageNumber isn't specified in the query string.
@@ -500,7 +592,19 @@ This logic applies to all sources.
 app.MapPost("/products", (Product? product) => () => { });
 ```
 
-The above will call the method will a null product if no request body was sent.
+The above will call the method with a null product if no request body was sent.
+
+**NOTE: If invalid data is provided and the parameter is nullable, the route handler will not be executed.**
+
+```csharp
+app.MapGet("/products", (int? pageNumber) => $"Requesting page {pageNumber ?? 1}");
+```
+
+The following request will result in a 400 (see the **Binding Failures** section below for more details)
+
+```
+GET /products?pageNumber=two
+```
 
 ### Special types
 
@@ -611,6 +715,19 @@ public enum SortDirection
 }
 ```
 
+### Binding failures
+
+When binding fails, the framework will log a debug message and it will return various status codes to the client
+depending on the failure mode.
+
+|Failure mode|Nullable Parameter Type|Binding Source|Status code|
+|--|--|--|--|
+|`{ParameterType}.TryParse` returns false |yes|route/query/header|400|
+|`{ParameterType}.BindAsync` returns null |yes|custom|400|
+|`{ParameterType}.BindAsync` throws |does not matter|custom|500|
+| Failure to read JSON body |does not matter|body|400|
+| Wrong content type (not application/json) |does not matter|body|415|
+
 ### Binding Precedence
 
 The rules for determining a binding source from a parameter are as follows:
@@ -634,11 +751,74 @@ The rules for determining a binding source from a parameter are as follows:
 1. If the parameter type is a service provided by dependency injection, it will use that as the source.
 1. The parameter is from the body.
 
+### Customizing JSON binding
+
+The body binding source uses System.Text.Json for de-serialization. It is *NOT* possible to change this default but you can customize
+the binding using other techniques described in above sections. To customize JSON serializer options, you can use
+the following:
+
+```csharp
+using Microsoft.AspNetCore.Http.Json;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Configure JSON options
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.IncludeFields = true;
+});
+
+var app = builder.Build();
+
+app.MapPost("/products", (Product product) => product);
+
+app.Run();
+
+class Product
+{
+    // These are public fields instead of properties
+    public int Id;
+    public string Name;
+}
+```
+
+This configures both the input and output default JSON options.
+
 ## Responses
 
-The following example uses the built in result types to customize the response:
+Route handlers support 2 types of return values:
 
-```#csharp
+1. `IResult` based - This includes `Task<IResult>` and `ValueTask<IResult>`
+1. `string` - This includes `Task<string>` and `ValueTask<string>`
+1. `T` (Any other type) - This includes `Task<T>` and `ValueTask<T>`
+
+|Return value|Behavior|Content-Type|
+|--|--|--|
+|`IResult` | The framework calls `IResult.ExecuteAsync`| Decided by the `IResult` implementation
+|`string` | The framework writes the string directly to the response | `text/plain`
+| `T` (Any other type) | The framework will JSON serialize the response| `application/json`
+
+**Example: string return values**
+
+```csharp
+app.MapGet("/hello", () => "Hello World");
+```
+
+**Example: JSON return values**
+
+```csharp
+app.MapGet("/hello", () => new { Message = "Hello World" });
+```
+
+**Example: IResult return values**
+
+```csharp
+app.MapGet("/hello", () => Results.Ok(new { Message = "Hello World" }));
+```
+
+The following example uses the built-in result types to customize the response:
+
+```csharp
 app.MapGet("/todos/{id}", (int id, TodoDb db) => 
     db.Todos.Find(id) is Todo todo 
         ? Results.Ok(todo)
@@ -648,25 +828,25 @@ app.MapGet("/todos/{id}", (int id, TodoDb db) =>
 
 ### JSON
 
-```#csharp
+```csharp
 app.MapGet("/hello", () => Results.Json(new { Message = "Hello World" }));
 ```
 
 ### Custom Status Code
 
-```#csharp
+```csharp
 app.MapGet("/405", () => Results.StatusCode(405));
 ```
 
 ### Text
 
-```#csharp
+```csharp
 app.MapGet("/text", () => Results.Text("This is some text"));
 ```
 
 ### Stream
 
-```#csharp
+```csharp
 var proxyClient = new HttpClient();
 app.MapGet("/pokemon", async () => 
 {
@@ -678,17 +858,19 @@ app.MapGet("/pokemon", async () =>
 
 ### Redirect
 
-```#csharp
+```csharp
 app.MapGet("/old-path", () => Results.Redirect("/new-path"));
 ```
 
 ### File
 
-```#csharp
+```csharp
 app.MapGet("/download", () => Results.File("foo.text"));
 ```
 
-### Built in results
+### Built-in results
+
+Common result helpers exist on the `Microsoft.AspNetCore.Http.Results` static class.
 
 |Description|Response type|Status Code|API|
 |--|--|--|--|
@@ -703,44 +885,163 @@ Write a JSON response with advanced options |application/json |200|`Results.Json
 |Set the status code to 422, with an optional JSON response | N/A |422|`Results.UnprocessableEntity`|
 |Set the status code to 400, with an optional JSON response | N/A |400|`Results.BadRequest`|
 |Set the status code to 409, with an optional JSON response | N/A |409|`Results.Conflict`|
-|Write a problem details JSON object to the response | N/A |400 (default), configurable|`Results.Problem`|
-|Write a problem details JSON object to the response with validation errors | N/A |400 (default), configurable|`Results.ValidationProblem`|
+|Write a problem details JSON object to the response | N/A |500 (default), configurable|`Results.Problem`|
+|Write a problem details JSON object to the response with validation errors | N/A | N/A, configurable|`Results.ValidationProblem`|
 
 ### Customizing results
+
+Users can take control of responses by implementing a custom `IResult` type. Here's an example of an HTML result type:
+
+```csharp
+namespace Microsoft.AspNetCore.Http;
+
+static class ResultsExtensions
+{
+    public static IResult Html(this IResultExtensions resultExtensions, string html)
+    {
+        ArgumentNullException.ThrowIfNull(resultExtensions, nameof(resultExtensions));
+
+        return new HtmlResult(html);
+    }
+}
+
+class HtmlResult : IResult
+{
+    private readonly string _html;
+
+    public HtmlResult(string html)
+    {
+        _html = html;
+    }
+
+    public Task ExecuteAsync(HttpContext httpContext)
+    {
+        httpContext.Response.ContentType = MediaTypeNames.Text.Html;
+        httpContext.Response.ContentLength = Encoding.UTF8.GetByteCount(_html);
+        return httpContext.Response.WriteAsync(_html);
+    }
+}
+```
+
+We recommend adding an extension method to `Microsoft.AspNetCore.Http.IResultExtensions` to make these custom results more discoverable.
+
+```csharp
+app.MapGet("/html", () => Results.Extensions.Html(@$"<!doctype html>
+<html>
+    <head><title>miniHTML</title></head>
+    <body>
+        <h1>Hello World</h1>
+        <p>The time on the server is {DateTime.Now:O}</p>
+    </body>
+</html>"));
+```
 
 ## Authorization
 
 Routes can be protected using authorization policies. These can be declared via the authorize attribute or by using the `RequireAuthorization` method call.
 
-```#csharp
+```csharp
 app.MapGet("/auth", [Authorize] () => "This endpoint requires authorization");
 ```
 
 OR
 
-```#csharp
+```csharp
 app.MapGet("/auth", () => "This endpoint requires authorization")
    .RequireAuthorization();
 ```
 
 Authorization policies can be configured as well:
 
-```#csharp
-app.MapGet("/auth", [Authorize("AdminsOnly")] () => "This endpoint requires authorization");
+```csharp
+app.MapGet("/admin", [Authorize("AdminsOnly")] () => "This endpoint is for admins only");
 ```
 
 OR
 
-```#csharp
-app.MapGet("/auth", () => "This endpoint requires authorization")
+```csharp
+app.MapGet("/admin", () => "This endpoint is for admins only")
    .RequireAuthorization("AdminsOnly");
 ```
 
-## Building libraries for ASP.NET Core
+## Open API/Swagger
 
-The existing .NET ecosystem has built extensibility around `IServiceCollection`, `IHostBuilder` and `IWebHostBuilder`. These properties are exposed on the `WebApplicationBuilder` as `Services`, `Host` and `WebHost`. 
+It's possible to describe the OpenAPI specification for route handlers using [Swashbuckle](https://www.nuget.org/packages/Swashbuckle.AspNetCore/). 
 
-The `WebApplication` implements both `Microsoft.AspNetCore.Builder.IApplicationBuilder` and `Microsoft.AspNetCore.Routing.IEndpointRouteBuilder`.
+Below is an example of a typical ASP.NET Core application with OpenAPI suppport:
 
-We expect library authors to continue targeting `IHostBuilder`, `IWebHostBuilder`, `IApplicationBuilder` and `IEndpointRouteBuilder` when building ASP.NET Core specific components. This will ensure that your middleware, route handler, or other extensibility points continue to work across different hosting models.
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = builder.Environment.ApplicationName, Version = "v1" });
+});
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{builder.Environment.ApplicationName} v1"));
+}
+```
+
+### Describing response types
+
+```csharp
+app.MapGet("/api/products", (int id, ProductDb db) => db.Products.Find(id) is Product product ? Results.Ok(product) : Results.NotFound())
+   .Produces<Product>(200)
+   .Produces(404);
+```
+
+### Exclude Open API description
+
+```csharp
+app.MapGet("/skipme", () => { })
+   .ExcludeFromDescription();
+```
+
+### Add operation ids to Open API
+
+```csharp
+app.MapGet("/api/products", (ProductDb db) => db.Products.ToListAsync())
+   .WithName("GetProducts");
+```
+
+### Add tags to the Open API description (used for grouping)
+
+```csharp
+app.MapGet("/api/products", (ProductDb db) => db.Products.ToListAsync())
+   .WithTags("ProductsGroup");
+```
+
+### Describe request body
+
+```csharp
+app.MapGet("/upload", async (HttpRequest req) =>
+{
+    if (!req.HasFormContentType)
+    {
+        return Results.BadRequest();
+    }
+
+    var form = await req.ReadFormAsync();
+    var file = form.Files["file"];
+
+    if (file is null)
+    {
+        return Results.BadRequest();
+    }
+
+    var uploads = Path.Combine(uploadsPath, file.FileName);
+    await using var fileStream = File.OpenWrite(uploads);
+    await using var uploadStream = file.OpenReadStream();
+    await uploadStream.CopyToAsync(fileStream);
+
+    return Results.NoContent();
+})
+.Accepts<IFormFile>("multipart/form-data");
+```
 

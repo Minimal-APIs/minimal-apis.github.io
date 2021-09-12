@@ -72,21 +72,21 @@ module.exports = {
         {
           title: "Tutorial",
           collapsable: false,
-          children: ["", "first-steps", "crud", "databases"],
+          children: ["", "first-steps", "crud", "databases", "openapi"],
         },
       ],
       "/quickstart/": [
         {
           title: "Quickstart",
           collapsable: true,
-          children: ["", "quickstart"],
+          children: ["", "quickstart", "openapi"],
         },
       ],
       "/guide/": [
         {
           title: "Guide",
           collapsable: true,
-          children: ["", "routing" ,"openapi", ],
+          children: ["", "routing" ],
         },
       ],
     },

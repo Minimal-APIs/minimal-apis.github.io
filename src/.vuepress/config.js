@@ -76,14 +76,14 @@ module.exports = {
         {
           title: "Quickstart",
           collapsable: true,
-          children: ["", "quickstart"],
+          children: ["", "quickstart", "openapi"],
         },
       ],
       "/guide/": [
         {
           title: "Guide",
           collapsable: true,
-          children: ["", "routing" ,"openapi", ],
+          children: ["", "routing" ],
         },
       ],
     },

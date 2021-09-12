@@ -44,7 +44,12 @@ module.exports = {
     lastUpdated: false,
     logo: "logo.png",
     smoothScroll: true,
+    sidebar: 'auto',
     nav: [
+      {
+        text: "Meet Minimal",
+        link: "/meet-minimal/",
+      },
       {
         text: "Quickstart",
         link: "/quickstart/",
@@ -74,6 +79,15 @@ module.exports = {
           collapsable: false,
           children: ["", "first-steps", "crud", "databases", "openapi"],
         },
+        
+      ],
+      "/meet-minimal/": [
+        {
+          title: "Meet Minimal",
+          collapsable: false,
+          children: [""],
+        },
+        
       ],
       "/quickstart/": [
         {

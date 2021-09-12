@@ -77,7 +77,7 @@ module.exports = {
         {
           title: "Tutorial",
           collapsable: false,
-          children: ["", "first-steps", "crud", "databases", "openapi"],
+          children: ["", "first-steps", "crud", "databases"],
         },
         
       ],

@@ -1,6 +1,6 @@
 # Minimal APIs
 
-## WebApplication
+## Application 
 
 ### Creating an application
 

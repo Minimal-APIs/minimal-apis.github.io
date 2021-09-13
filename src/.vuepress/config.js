@@ -55,10 +55,6 @@ module.exports = {
         link: "/quickstart/",
       },
       {
-        text: "Guide",
-        link: "/guide/",
-      },
-      {
         text: "Tutorial",
         link: "/tutorial/",
       },

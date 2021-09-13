@@ -93,7 +93,7 @@ module.exports = {
         {
           title: "Quickstart",
           collapsable: true,
-          children: ["", "quickstart", "openapi"],
+          children: ["", "quickstart" ],
         },
       ],
       "/guide/": [

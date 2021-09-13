@@ -47,8 +47,8 @@ module.exports = {
     sidebar: 'auto',
     nav: [
       {
-        text: "Meet Minimal",
-        link: "/meet-minimal/",
+        text: "Hello Minimal",
+        link: "/hello-minimal/",
       },
       {
         text: "Quickstart",
@@ -77,9 +77,9 @@ module.exports = {
         },
         
       ],
-      "/meet-minimal/": [
+      "/hello-minimal/": [
         {
-          title: "Meet Minimal",
+          title: "Hello Minimal",
           collapsable: false,
           children: [""],
         },

@@ -83,7 +83,7 @@ module.exports = {
       ],
       "/hello-minimal/": [
         {
-          title: "Meet Minimal",
+          title: "Hello Minimal",
           collapsable: false,
           children: [""],
         },

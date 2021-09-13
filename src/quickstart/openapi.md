@@ -6,7 +6,7 @@ As shown in the [first steps](/tutorial/first-steps.html#interactive-api-docs) t
 
 ## Enabling OpenAPI
 
-We'll explore two ways you can enable OpenAPI descriptions from your minimal APIs - either when you create your API project, or by adding OpenAPI output to an existing API project.
+We'll explore two ways you can enable OpenAPI descriptions for your minimal APIs - either when you create your API project, or by adding OpenAPI output to an existing API project.
 
 ### Create a minimal API with OpenAPI
 

@@ -2,7 +2,7 @@
 home: true
 tagline: Build minimal APIs with C#
 actionText:  Hello Minimal APIs →
-actionLink: /meet-minimal/
+actionLink: /hello-minimal/
 
 features:
 - title:  Minimalism First 🍃

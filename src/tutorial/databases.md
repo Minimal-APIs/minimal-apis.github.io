@@ -4,7 +4,7 @@
 
 We just learned how to build a basic [CRUD](CRUD.md) application with an in-memory database. Now, we are going to step it up notch and work with a persistent database. Meaning your data will be saved even after you shut down your application.
 
- For this tutorial we will be using [SQLite database](https://www.sqlite.org/index.html) but, you may use one that works better for you. 
+ For this tutorial we will be using [SQLite database](https://www.sqlite.org/index.html) but, you may use one that works better for you.
 
 ## Setup SQLite database
 **Setup SQLite Database using Entity Framework Core(EF Core)***
@@ -13,13 +13,13 @@ We just learned how to build a basic [CRUD](CRUD.md) application with an in-memo
 
 Using .NET CLI / Visual Studio package manager UI, install the following packages:
 
-**[SQLite EF Core Database Provider](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/6.0.0-preview.5.21301.9)** : can access many different databases through plug-in libraries called [database providers](https://docs.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli). The package below is the SQLite database provider for EF Core.
+**[SQLite EF Core Database Provider](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/6.0.0-preview.5.21301.9)** : can access many different databases through plug-in libraries called [database providers](https://docs.microsoft.com/ef/core/providers/?tabs=dotnet-core-cli). The package below is the SQLite database provider for EF Core.
 
 ```console
 TodoApi>dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 6.0.0-preview.6.21352.1
 ```
 
-**[Entity Framework Core tools ](https://docs.microsoft.com/en-us/ef/core/cli/dotnet)**: tools for Entity Framework Core perform design-time development tasks. For example, they create migrations, apply migrations, and generate code for a model based on an existing database.
+**[Entity Framework Core tools ](https://docs.microsoft.com/ef/core/cli/dotnet)**: tools for Entity Framework Core perform design-time development tasks. For example, they create migrations, apply migrations, and generate code for a model based on an existing database.
 
 ```console
 TodoApi>dotnet tool install --global dotnet-ef
@@ -36,7 +36,7 @@ TodoApi>dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.0-
 In order to enable database creation they are couple of steps we need to complete:
 1.  Set the database connection string.
 2.  Migrate your data model *(see below)* to a SQLite database.
-**Create a data model** 
+**Create a data model**
 ```cs
 class TodoItem
 {
@@ -46,31 +46,31 @@ class TodoItem
 
 }
 ```
-3. Create your database and schema 
+3. Create your database and schema
 
 
-## Set connection string 
+## Set connection string
 
 In `Program.cs` below your app builder `var builder = WebApplication.CreateBuilder(args);` add a connection string.
 
-```cs 
+```cs
 var connectionString = builder.Configuration.GetConnectionString("todos") ?? "Data Source=todos.db";
 ```
 
 ## Add your context to your services
 
-In the CRUD portion of this tutorial, we used an in-memory database. Now we are going to replace the in-memory database with a persistent database. 
+In the CRUD portion of this tutorial, we used an in-memory database. Now we are going to replace the in-memory database with a persistent database.
 
-Replace your current in-memory database implementation `builder.Services.AddDbContext<TodoDb>(options => options.UseInMemoryDatabase("items"));` in your build services with the SQLite one below: 
+Replace your current in-memory database implementation `builder.Services.AddDbContext<TodoDb>(options => options.UseInMemoryDatabase("items"));` in your build services with the SQLite one below:
 
-```cs 
+```cs
 builder.Services.AddSqlite<TodoDb>(connectionString);
 ```
 ## Migrate data model
 
 With EF Core migration tool, you can now start your first migration `InitialCreate`.  In a terminal window, run the `migrations` command below:
 
-```console 
+```console
 TodoApi> dotnet ef migrations add InitialCreate
 ```
 
@@ -81,7 +81,7 @@ EF Core will create a folder called Migrations in your project directory contain
 ## Create your database and schema
 Now that you have completed the migration, you can use it to create your database and schema. In a terminal window, run the `database update` command below to apply migrations to a database:
 
-```console 
+```console
 TodoApi> dotnet ef database update
 ```
 You should see a newly created `todos.db` file in your project directory *(see image below)*
@@ -93,5 +93,5 @@ You should see a newly created `todos.db` file in your project directory *(see i
 - Create a SQLite database
 - Perform SQLite CRUD operation from our todo api
 
-Your persistent database is set up! Happy coding  😺 
+Your persistent database is set up! Happy coding  😺
 

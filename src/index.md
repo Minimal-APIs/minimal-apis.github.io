@@ -2,7 +2,7 @@
 home: true
 tagline: Build minimal APIs with C#
 actionText:  Hello Minimal APIs →
-actionLink: /meet-minimal/
+actionLink: /hello-minimal/
 features:
 - title:  Minimalism First 🍃
   details: Rapidly move from idea to a functioning application. All the features of C# web applications without the ceremony.

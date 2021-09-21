@@ -72,7 +72,7 @@ You will see the JSON response
 }
 ```
 
-> Please note the your port number will be different. Port number us created at 
+> Please note the your port number will be different.
 
 ### Learn checklist one ✔️ 
 

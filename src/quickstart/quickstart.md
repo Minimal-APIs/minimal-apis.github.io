@@ -1,11 +1,11 @@
 # App overview
 
-This page is designed to give you an introduction to doing common tasks in C# minimal server app. If you want to follow along with the steps here then you first need to install the [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet).
+This page is designed to give you an introduction to doing common tasks in C# minimal server app. If you want to follow along with the steps here, then you first need to install the [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0).
 
 Before you can follow along with the minimal server quick start, please install the following:
 
-- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet)
-- An editor of your choice for example [VS Code](https://code.visualstudio.com/) or [Visual Studio](https://visualstudio.microsoft.com/)
+- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+- An editor of your choice, such as [VS Code](https://code.visualstudio.com/) or [Visual Studio](https://visualstudio.microsoft.com/)
 
 Once you have done that, open a terminal such as PowerShell, Command Prompt, or bash. Run the following command to create your first app:
 
@@ -13,7 +13,7 @@ Once you have done that, open a terminal such as PowerShell, Command Prompt, or 
 dotnet new web --output minimalapp
 ```
 
-This will create a new directory with a few files to get you started:
+This command will create a new directory with a few files to get you started:
 
 1. _Program.cs_: This is your first code file we will be editing for most of this guide.
 1. _MinimalApp.csproj_: This is a project file that helps the `dotnet` command know how to run your code. We will ignore it for this guide as it has everything it needs already.
@@ -40,7 +40,7 @@ In four lines of code
 
 1. **`var builder = WebApplication.CreateBuilder(args);`**
 
-  You create an app builder, which is used to configure the app. In this default example you aren't doing any configuration yet, so just build an `app` object. You use the builder to create an app and then you run the app, this is known as the builder pattern.
+  You create an app builder, which is used to configure the app. In this default example, you aren't doing any configuration yet, so just build an `app` object. You use the builder to create an app and then you run the app, this is known as the builder pattern.
 
 2. **`var app = builder.Build();`**
 
@@ -81,21 +81,22 @@ If you navigate to `http://localhost:5000` in a browser you will see the text `H
 ### What if I see something different?
 
 If you haven't changed any code in the _Program.cs_ and your app still fails to run then it is likely a problem with the installation of `dotnet`. But there are a couple of common things you might see:
- - If you see an error saying `Couldn't find a project to run` then you are probably in the wrong directory, make sure your terminal is in the right place.
- - If you see an error saying `Failed to bind to address https://127.0.0.1:5001: address already in use` then you probably have another `dotnet run` command running on another terminal window. You can stop that app by pressing `CTRL + C`. You can only have one app listening on a given address on a computer. We will talk about how to change the URL your app is listening on a bit later.
+
+- If you see an error saying `Couldn't find a project to run` then you are probably in the wrong directory, make sure your terminal is in the right place.
+- If you see an error saying `Failed to bind to address https://127.0.0.1:5001: address already in use` then you probably have another `dotnet run` command running on another terminal window. You can stop that app by pressing `CTRL + C`. You can only have one app listening on a given address on a computer. We will talk about how to change the URL your app is listening on a bit later.
 
 ## Basic Routing
 
 When building a web application you typically want to try and create meaningful URLs that execute your code. For example, going to `/hello` returns a hello string and going to `/todos` or `/todolist` shows me all the todo items I have. It doesn't matter what URL you use as long as it makes sense to you and you think it will make sense to your users.
 
-In our ASP.NET Core program we use the `Map` methods to create an endpoint that binds a URL to our code:
+In your ASP.NET Core program, you use the `Map` methods to create an endpoint that binds a URL to our code:
 
 ```csharp
 app.MapGet("/hello", () => "Hello World!");
 app.MapGet("/todos", () => new { TodoItem = "Learn about routing", Complete = false });
 ```
 
-> If you run the app with the above `/todos` route and view it in a browser you will see that the framework has automatically converted the todo item to JSON.
+> If you run the app with the above `/todos` route and view it in a browser, you'll see that the framework has automatically converted the todo item to JSON.
 
 ### Route Variables
 
@@ -105,19 +106,19 @@ You can add variables to routes using curly braces like `{id}`:
 app.MapGet("/hello/{name}", (string name) => $"Hello {name}");
 ```
 
-This endpoint will match URLs like `/hello/David` would return `Hello David`. If you add this method to the ones shown earlier then navigating to `/hello` would return `Hello World!` as the two endpoints have different routes and match differently.
+This endpoint will match URLs like `/hello/David` would return `Hello David`. If you add this method to the ones shown earlier, then navigating to `/hello` would return `Hello World!` as the two endpoints have different routes and match differently.
 
 > If you have two routes the same then your application will still run, but when you try to navigate to those routes you will get an error like:
 ![image](https://user-images.githubusercontent.com/234688/128390787-b3ab9769-a0c4-4a67-9d16-716bc52b4416.png)
-In this image I have to `hello` routes and the framework can't tell which code you want it to run, so it throws an error. Remember that `hello/` and `hello` are the same as far as ASP.NET Core is concerned, the end slash doesn't make them different.
+In this image, we have two `hello` routes and the framework can't tell which code you want it to run, so it throws an error. Remember that `hello/` and `hello` are the same as far as ASP.NET Core is concerned, the end slash doesn't make them different.
 
 ### Constraints
 
-You can specify the type of a variable by doing `/hello/{name:int}` which would mean that the route would no longer match if you navigated to `/hello/David` but would match if you navigate to `/hello/1` because we said that our name variable should be an `int` in the route. These are called [Route Constraints](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-5.0#route-constraint-reference) and allow you to have fine control over what code gets run when users enter different types of URLs.
+You can specify the type of a variable by doing `/hello/{name:int}`, which would mean that the route would no longer match if you navigated to `/hello/David` but would match if you navigate to `/hello/1` because we said that our name variable should be an `int` in the route. These are called [Route Constraints](https://docs.microsoft.com/aspnet/core/fundamentals/routing?view=aspnetcore-5.0#route-constraint-reference) and allow you to have fine control over what code gets run when users enter different types of URLs.
 
 ## HTTP Methods Overview
 
-So far we've shown `MapGet` which allows you to specify a HTTP Get action, which is what a browser sends when you go to a URL. But there are other HTTP methods you are likely to want and you can use other Map methods to get those, for example `MapPost` or `MapPut`. The other Map methods work the same as `MapGet` that we've already seen but responds to a post or put respectively. You can learn more about [HTTP request methods here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods). For now, think of using `Post` when sending data to the app and `Get` when getting data from the app.
+So far we've shown `MapGet`, which allows you to specify a HTTP Get action, which is what a browser sends when you go to a URL. But there are other HTTP methods you are likely to want and you can use other Map methods to get those, for example `MapPost` or `MapPut`. The other Map methods work the same as `MapGet` that we've already seen but responds to a post or put respectively. You can learn more about [HTTP request methods here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods). For now, think of using `Post` when sending data to the app and `Get` when getting data from the app.
 
 ```csharp
 app.MapGet("/hello", () => "Hello World!");
@@ -125,30 +126,31 @@ app.MapGet("/todos", () => new { TodoItem = "Learn about routing", Complete = fa
 app.MapPost("/todos", () => Result.Ok());
 ```
 
-You will notice that `MapPost` and `MapGet` in this example are using the same URL. That is because the different verbs can all use the same URL and ASP.NET Core will invoke the right code for you. What this allows is for you to create a URL for your todos and use GET to get todos and POST to add a todo.
+Notice that `MapPost` and `MapGet` in this example are using the same URL. That is because the different verbs can all use the same URL and ASP.NET Core will invoke the right code for you. What this allows is for you to create a URL for your todos and use GET to get todos and POST to add a todo.
 
 ## Error Handling Overview
 
-If you have an unexpected error in your code then ASP.NET Core automatically tries to show you what went wrong:
+If you have an unexpected error in your code, then ASP.NET Core automatically tries to show you what went wrong:
 
 ```csharp
 app.MapGet("/dobad", () => int.Parse("this is not an int"));
 ```
 
-If I visit the `dobad` URL in a browser I will see this:
+If you visit the `dobad` URL in a browser, you'll see this:
 
 ![image](https://user-images.githubusercontent.com/234688/129421056-51d1b7aa-ed3c-4cc3-8bc8-f3d2b0715f06.png)
 
-and the following will appear in the terminal that I run `dotnet run` in:
+And the following will appear in the terminal that you run `dotnet run` in:
 
 ![image](https://user-images.githubusercontent.com/234688/129421155-fb148b66-30ee-4156-ad5c-52c84f31ccac.png)
 
-Both of these give you an idea of what's wrong, in this case that I tried to turn a string that isn't a number into an `int`.
+Both of these give you an idea of what's wrong. In this case, you tried to turn a string that isn't a number into an `int`.
 
 ## Environments
-In the screenshot above you can see the terminal output saying `Hosting environment: Development`. This is controlled by the environment variable `ASPNETCORE_ENVIRONMENT`. If the `ASPNETCORE_ENVIRONMENT` is not set then ASP.NET Core assumes the value is `Production`, when using `dotnet run` or editors like VS Code or Visual Studio they will set the value to `Development`.
 
-The error handling page we showed above only appears when the environment is `Development`. You can check the environment value yourself like this:
+In the previous screenshot, you can see the terminal output saying `Hosting environment: Development`. This is controlled by the environment variable `ASPNETCORE_ENVIRONMENT`. If the `ASPNETCORE_ENVIRONMENT` is not set, then ASP.NET Core assumes the value is `Production`, when using `dotnet run` or editors like VS Code or Visual Studio they will set the value to `Development`.
+
+The error handling page showed above only appears when the environment is `Development`. You can check the environment value yourself like this:
 
 ```csharp
 if (app.Environment.IsDevelopment())
@@ -170,9 +172,11 @@ if (app.Environment.EnvironmentName == "TestEnvironment")
 The pre-defined values for environment are `Development`, `Staging`, and `Production`. `Development` is set by development time tooling like `dotnet run` and we assume that the environment is `Production` if it isn't set to anything. ASP.NET Core will add the error handling page to your app if the environment is `Development`.
 
 ## Accessing Data
-OK, so if you use `MapPost` to send data to the code how does that work?
+
+OK, so if you use `MapPost` to send data to the code, how does that work?
 
 ### Model Binding
+
 The most common way of accessing data in ASP.NET Core is to create classes and let ASP.NET Core fill them in for you:
 
 ```csharp
@@ -207,10 +211,11 @@ Another more basic way of accessing information, and data, from a request is usi
 app.MapGet("/hello/{name}", (HttpContext ctx) => $"Hello {ctx.Request.RouteValues["name"]}");
 ```
 
-In this code we are accepting an `HttpContext` and using it to manually access the route value rather than letting ASP.NET Core automatically match it like we did in our example above. As well as all route values the `HttpContext` has access to all request information, like the body and cookies. You can read from the request property of HttpContext and write to the Response property, which ASP.NET Core does for you in all of the examples before this one.
+In this code, you are accepting an `HttpContext` and using it to manually access the route value rather than letting ASP.NET Core automatically match it like you did in the previous example. As well as all route values the `HttpContext` has access to all request information, like the body and cookies. You can read from the request property of HttpContext and write to the Response property, which ASP.NET Core does for you in all of the examples before this one.
 
 ## Returning HTML
-If you want to return some HTML rather than processing JSON like we have been so far. ASP.NET Core uses a language called [Razor]() which is a mix of C# and HTML to make authoring UI easier. So we will add Razor to our app:
+
+If you want to return some HTML rather than processing JSON like you've been doing so far, ASP.NET Core uses a language called [Razor](), which is a mix of C# and HTML to make authoring UI easier. So let's add Razor to your app:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -231,7 +236,7 @@ class Todo
 }
 ```
 
-Then you can create a folder called `Pages` and a file in that folder called `Index.razor` with this content:
+Then create a folder called `Pages` and a file in that folder called `Index.razor` with this content:
 
 ```html
 @page "/page/route"

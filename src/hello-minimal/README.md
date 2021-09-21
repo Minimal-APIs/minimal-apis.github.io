@@ -964,7 +964,7 @@ app.MapGet("/admin", () => "This endpoint is for admins only")
    .RequireAuthorization("AdminsOnly");
 ```
 
-## Open API/Swagger
+## OpenAPI/Swagger
 
 It's possible to describe the OpenAPI specification for route handlers using [Swashbuckle](https://www.nuget.org/packages/Swashbuckle.AspNetCore/). 
 

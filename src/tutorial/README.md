@@ -9,4 +9,3 @@ This tutorial will teach you how to build the backend to a Todo App using minima
 - Build interactive API documentation with Swagger UI 
 - Build CRUD application 
 - Store Todo items into a database.
-

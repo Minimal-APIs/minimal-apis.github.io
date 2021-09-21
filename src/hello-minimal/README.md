@@ -1,4 +1,4 @@
-# Hello Minimal APIs 
+# Hello Minimal APIs 👋🏾
 
 ## Application 
 
@@ -47,58 +47,6 @@ var port = Environment.GetEnvironmentVariable("PORT") ?? "3000";
 app.MapGet("/", () => "Hello World");
 
 app.Run($"http://localhost:{port}");
-```
-
-### Changing the ports via environment variables
-
-You can set the `ASPNETCORE_URLS` environment variable to change the address:
-
-```
-ASPNETCORE_URLS=http://localhost:3000
-```
-
-This supports multiple urls:
-
-```
-ASPNETCORE_URLS=http://localhost:3000;https://localhost:5000
-```
-
-### Listening on all interfaces
-
-```csharp
-var app = WebApplication.Create(args);
-
-app.Urls.Add("http://*:3000");
-
-app.MapGet("/", () => "Hello World");
-
-app.Run();
-```
-
-```csharp
-var app = WebApplication.Create(args);
-
-app.Urls.Add("http://+:3000");
-
-app.MapGet("/", () => "Hello World");
-
-app.Run();
-```
-
-```csharp
-var app = WebApplication.Create(args);
-
-app.Urls.Add("http://0.0.0.0:3000");
-
-app.MapGet("/", () => "Hello World");
-
-app.Run();
-```
-
-This syntax also works in the environment variables:
-
-```
-ASPNETCORE_URLS=http://*:3000;https://+:5000;http://0.0.0.0:5005
 ```
 
 ### HTTPS with development certificate
@@ -513,7 +461,7 @@ app.MapGet("/posts/{slug:regex(^[a-z0-9_-]+$)}", (string slug) => $"Post {slug}"
 |`/posts/mypost`| `/posts/{slug:regex(^[a-z0-9_-]+$)}` |
 |`/posts/%`| No match |
 
-### Contraints
+### Built in contraints
 
 | constraint | Example | Example Matches | Notes |
 | ---------- | ------- | --------------- | ----- |
@@ -547,8 +495,6 @@ Supported binding sources:
 - Body (as JSON)
 - Services provided by dependency injection
 - Custom
-
-**NOTE: Binding from forms are not natively supported in this release.**
 
 ### GET, HEAD, OPTIONS, DELETE
 
@@ -689,7 +635,7 @@ public static bool TryParse(string value, IFormatProvider provider, T out result
 **Example**
 
 ```csharp
-app.MapGet("/map", (Point point) => $"Point: {point.X}, {point.Y}");
+app.MapGet("/map/{point}", (Point point) => $"Point: {point.X}, {point.Y}");
 
 public class Point
 {
@@ -715,7 +661,7 @@ public class Point
 }
 ```
 
-A request to `/map?point=(12.3,10.1)` returns:
+A request to `/point?point=(12.3,10.1)` returns:
 
 ```
 Point: 12.3,10.1
@@ -992,17 +938,7 @@ app.MapGet("/html", () => Results.Extensions.Html(@$"<!doctype html>
 
 ## Authorization
 
-Routes can be protected using authorization policies. These can be declared via the `Authorize` attribute or by using the `RequireAuthorization` method.
-
-```csharp
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddAuthorization(o => o.AddPolicy("AdminsOnly", b => b.RequireClaim("admin", "true"));
-
-var app = builder.Build();
-
-app.UseAuthorization();
-```
+Routes can be protected using authorization policies. These can be declared via the authorize attribute or by using the `RequireAuthorization` method call.
 
 ```csharp
 app.MapGet("/auth", [Authorize] () => "This endpoint requires authorization");
@@ -1028,31 +964,7 @@ app.MapGet("/admin", () => "This endpoint is for admins only")
    .RequireAuthorization("AdminsOnly");
 ```
 
-## CORS
-
-Routes can be CORS enabled using CORS policies. These can be declared via the `EnableCors` attribute or by using the
-`RequireCors` method.
-
-```csharp
-var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddCors(options => options.AddPolicy("AnyOrigin", o => o.AllowAnyOrigin()));
-
-var app = builder.Build();
-app.UseCors();
-```
-
-```csharp
-app.MapGet("/cors", [EnableCors("AnyOrigin")] () => "This endpoint allows cross origin requests!");
-```
-
-OR
-
-```csharp
-app.MapGet("/cors", () => "This endpoint allows cross origin requests!")
-   .RequireCors("AnyOrigin");
-```
-
-## OpenAPI
+## Open API/Swagger
 
 It's possible to describe the OpenAPI specification for route handlers using [Swashbuckle](https://www.nuget.org/packages/Swashbuckle.AspNetCore/). 
 

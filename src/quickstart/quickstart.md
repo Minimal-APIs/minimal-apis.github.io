@@ -123,7 +123,7 @@ So far we've shown `MapGet`, which allows you to specify a HTTP Get action, whic
 ```csharp
 app.MapGet("/hello", () => "Hello World!");
 app.MapGet("/todos", () => new { TodoItem = "Learn about routing", Complete = false });
-app.MapPost("/todos", () => Result.Ok());
+app.MapPost("/todos", () => Results.Ok());
 ```
 
 Notice that `MapPost` and `MapGet` in this example are using the same URL. That is because the different verbs can all use the same URL and ASP.NET Core will invoke the right code for you. What this allows is for you to create a URL for your todos and use GET to get todos and POST to add a todo.

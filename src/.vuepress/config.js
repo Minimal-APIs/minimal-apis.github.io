@@ -96,7 +96,7 @@ module.exports = {
         {
           title: "Guide",
           collapsable: true,
-          children: ["", "routing" ],
+          children: ["", "routing", "parameter-binding" ],
         },
       ],
     },

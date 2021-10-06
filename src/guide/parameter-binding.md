@@ -38,8 +38,8 @@ app.MapPut("/todos/{id}", async (
 Parameters sources are determined using the following rules applied in order:
 
 1. [Parameter attributes](#attributes) take precedence over conventions if they are present.
-2. Any [well-known types](#well-known-types) are bound from the the [HttpContext](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.http.httpcontext) or one of its properties.
-3. `string` parameters are bound from `HttpContext.RouteValues[{ParameterName}]` or `HttpContext.Query[{ParameterName}]` depending on whether `{ParameterName}` is part of the route pattern.
+2. Any [well-known types](#well-known-types) are bound from the [HttpContext](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.http.httpcontext) or one of its properties.
+3. `string` parameters are bound from `HttpContext.RouteValues[{ParameterName}]` when `{ParameterName}` is part of the route pattern or `HttpContext.Query[{ParameterName}]` otherwise.
 4. Types with public static [BindAsync](#bindasync) methods are bound using `BindAsync`.
 5. Types with public static [TryParse](#tryparse) methods are bound by calling `TryParse` with `HttpContext.RouteValues[{ParameterName}]` or `HttpContext.Query[{ParameterName}]` depending on whether `{ParameterName}` is part of the route pattern. This includes most built-in numeric types, enums, `DateTime`, `TimeSpan` and more.
 6. Types registered as a service are bound from request services.
@@ -76,7 +76,7 @@ If the `Name` property is provided (e.g. `[FromHeader(Name = "X-My-Custom-Header
 If the `EmptyBodyBehavior` property is set to `EmptyBodyBehavior.Allow` (e.g. `[FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)]`), the parameter will be set to `null` or its `default` value if the request body is empty. This corresponds to the `IFromBodyMetadata.AllowEmpty` being true.
 
 ## Well-Known Types
-
+If the delegate parameters are any of the following types, they will be populated from the [HttpContext](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.http.httpcontext).
 - HttpContext
 - HttpRequest (`HttpContext.Request`)
 - HttpResponse (`HttpContext.Response`)
@@ -101,7 +101,7 @@ public static ValueTask<{ParameterType}> BindAsync(HttpContext context)
 }
 ```
 
-The return value can be either `ValueTask<{ParameterType}>` or `ValueTask<{ParameterType}?>` for both overloads. Whether returning a `null` value is allowed is determined by the nullability of parameter type. If the parameter type is non-nullable, the route handler will not be called and a bad request will be logged.
+The return value can be either `ValueTask<{ParameterType}>` or `ValueTask<{ParameterType}?>` for both overloads. Whether returning a `null` value is allowed is determined by the nullability of the parameter type. If the parameter type is non-nullable, the route handler will not be called and a bad request will be logged.
 
 In the case where both overloads are defined anywhere in the parameter type's hierarchy, the `BindAsync` method with the `ParameterInfo` argument will be called.
 
@@ -127,7 +127,7 @@ public static bool TryParse(string? value, out {ParameterType} result)
 
 The out parameter can be either `out {ParameterType}` or `out {ParameterType}?` for both overloads. Whether providing a `null` value is allowed is determined by the nullability of parameter type. If the parameter type is non-nullable, the route handler will not be called and a bad request will be logged.
 
-In the case where both overloads are defined anywhere in the parameter type's hierarchy, the `TryParse` method with the `IFormatProvider` argument will be called.
+In the case where both overloads are defined anywhere in the parameter type's hierarchy, the `TryParse` method with the `IFormatProvider` parameter will be called.
 
 If there is more than one `TryParse` method with the same signature, the method from the most derived type will be called. `TryParse` methods on interfaces are chosen last. A parameter type implementing more than one interface defining matching `TryParse` methods is an error.
 
@@ -135,11 +135,11 @@ If there is more than one `TryParse` method with the same signature, the method 
 
 Service parameters are resolved from `HttpContext.RequestServices.GetService(typeof({ParameterType}))`.
 
-Whether or not a given parameter type is a service is determined using `IServiceProviderIsService` unless the parameter is explicitly attributed with `[FromServices]`. Given the `[FromServices]` attribute, the parameter type is assumed to exist.
+Whether or not a given parameter type is a service is determined using `IServiceProviderIsService` unless the parameter is explicitly attributed with `[FromServices]`. Given the `[FromServices]` attribute, the parameter type is assumed to exist in the service provider.
 
 For non-nullable parameters, the parameter type must be resolvable as a service for the route handler to be called. If the service does not exist, an exception will be thrown when the endpoint is hit. For Nullable
 
-[IServiceProviderIsService](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iserviceproviderisservice.isservice) is a new interface introduced in .NET 6 that automatically implemented by the default service provider and some third-party containers. If `IServiceProviderIsService` itself is not available as a service, the `[FromServices]` attribute must be used to resolve parameters from services.
+[IServiceProviderIsService](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iserviceproviderisservice.isservice) is a new interface introduced in .NET 6 that is implemented by the default service provider and some third-party containers. If `IServiceProviderIsService` itself is not available as a service, the `[FromServices]` attribute must be used to resolve parameters from services.
 
 ## JSON Request Body
 

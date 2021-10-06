@@ -101,7 +101,7 @@ public static ValueTask<{ParameterType}> BindAsync(HttpContext context)
 }
 ```
 
-The return value can be either `ValueTask<{ParameterType}>` or `ValueTask<{ParameterType}?>` for both overloads. Whether returning a `null` value is allowed is determined by the nullability of the parameter type. If the parameter type is non-nullable, the route handler will not be called and a bad request will be logged.
+The return value can be either `ValueTask<{ParameterType}>` or `ValueTask<{ParameterType}?>`. Whether or not returning a `null` value results in an error is determined by the nullability of the parameter type. If the parameter type is non-nullable, the route handler will not be called and a bad request will be logged. If the parameter type is nullable, the route handler will be supplied a null value for the given parameter.
 
 In the case where both overloads are defined anywhere in the parameter type's hierarchy, the `BindAsync` method with the `ParameterInfo` argument will be called.
 
@@ -125,7 +125,7 @@ public static bool TryParse(string? value, out {ParameterType} result)
 }
 ```
 
-The out parameter can be either `out {ParameterType}` or `out {ParameterType}?` for both overloads. Whether providing a `null` value is allowed is determined by the nullability of parameter type. If the parameter type is non-nullable, the route handler will not be called and a bad request will be logged.
+Whether or not returning false is an error is determined by the nullability of parameter type. If the parameter type is non-nullable, the route handler will not be called and a bad request will be logged. If the parameter type is nullable, the route handler will be supplied a null value for the given parameter.
 
 In the case where both overloads are defined anywhere in the parameter type's hierarchy, the `TryParse` method with the `IFormatProvider` parameter will be called.
 
@@ -137,7 +137,7 @@ Service parameters are resolved from `HttpContext.RequestServices.GetService(typ
 
 Whether or not a given parameter type is a service is determined using `IServiceProviderIsService` unless the parameter is explicitly attributed with `[FromServices]`. Given the `[FromServices]` attribute, the parameter type is assumed to exist in the service provider.
 
-For non-nullable parameters, the parameter type must be resolvable as a service for the route handler to be called. If the service does not exist, an exception will be thrown when the endpoint is hit. For Nullable
+For non-nullable parameters, the parameter type must be resolvable as a service for the route handler to be called. If the service does not exist, an exception will be thrown when the endpoint is hit. For nullable parameters, the route handler will be supplied a null value for the given parameter.
 
 [IServiceProviderIsService](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iserviceproviderisservice.isservice) is a new interface introduced in .NET 6 that is implemented by the default service provider and some third-party containers. If `IServiceProviderIsService` itself is not available as a service, the `[FromServices]` attribute must be used to resolve parameters from services.
 

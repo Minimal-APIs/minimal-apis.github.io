@@ -5,6 +5,6 @@ Level
 
 Beginner 🍃
 
-Intermidate 🍃🍃
+Intermediate 🍃🍃
 
 Advance 🍃🍃🍃

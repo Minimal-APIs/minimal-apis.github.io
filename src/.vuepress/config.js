@@ -65,7 +65,7 @@ module.exports = {
       {
         text: "Microsoft Docs",
         link:
-          "https://docs.microsoft.com/dotnet/core/tutorials/top-level-templates",
+          "https://docs.microsoft.com/aspnet/core/fundamentals/minimal-apis",
       },
     ],
     sidebar: {

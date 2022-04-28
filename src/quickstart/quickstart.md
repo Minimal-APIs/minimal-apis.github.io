@@ -1,4 +1,4 @@
-# App overview
+# Getting started
 
 This page is designed to give you an introduction to doing common tasks in C# minimal server app. If you want to follow along with the steps here, then you first need to install the [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0).
 

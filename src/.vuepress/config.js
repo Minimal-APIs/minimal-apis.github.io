@@ -51,12 +51,12 @@ module.exports = {
         link: "/hello-minimal/",
       },
       {
-        text: "Quickstart",
+        text: "Getting Started",
         link: "/quickstart/",
       },
       {
-        text: "Tutorial",
-        link: "/tutorial/",
+        text: "Tutorials",
+        link: "/tutorials/",
       },
       {
         text: "Samples",
@@ -69,9 +69,9 @@ module.exports = {
       },
     ],
     sidebar: {
-      "/tutorial/": [
+      "/tutorials/": [
         {
-          title: "Tutorial",
+          title: "Tutorials",
           collapsable: false,
           children: ["", "first-steps", "crud", "databases"],
         },
@@ -79,7 +79,7 @@ module.exports = {
       ],
       "/hello-minimal/": [
         {
-          title: "Hello Minimal",
+          title: "Examples",
           collapsable: false,
           children: [""],
         },

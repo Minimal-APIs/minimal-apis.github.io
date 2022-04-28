@@ -1,7 +1,7 @@
 # Let's build 
 ## Create Read Update Delete
 
-In [checklist one ](/tutorial/first-steps), you built simple API where you hard coded the results to HTTP method. 
+In [checklist one ](/tutorials/first-steps), you built simple API where you hard coded the results to HTTP method. 
 
 For example:  `app.MapGet("/todo", () => new { Item = "Water plants", Complete = "false" });`  has been hard coded to return the JSON results below.
 

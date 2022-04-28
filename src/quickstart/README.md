@@ -20,4 +20,4 @@ Here is [a list of common scenarios ](/hello-minimal) in minimal APIs.
 
 ### Want to jump straight into your first project?  
 
-We have built a collection of tutorials and project ideas. Look through [the full list ](/tutorial), or you can start by [building a CRUD application ](/tutorial/crud) that serves as the backend for a productivity to-do app. 
+We have built a collection of tutorials and project ideas. Look through [the full list ](/tutorials), or you can start by [building a CRUD application ](/tutorials/crud) that serves as the backend for a productivity to-do app. 

@@ -69,9 +69,9 @@ module.exports = {
       },
     ],
     sidebar: {
-      "/tutorial/": [
+      "/tutorials/": [
         {
-          title: "Tutorial",
+          title: "Tutorials",
           collapsable: false,
           children: ["", "first-steps", "crud", "databases"],
         },

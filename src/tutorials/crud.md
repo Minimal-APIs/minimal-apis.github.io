@@ -1,7 +1,8 @@
-# Let's build 
-## Create Read Update Delete
+# Tutorial Two: My First CRUD App
 
-In [checklist one ](/tutorials/first-steps), you built simple API where you hard coded the results to HTTP method. 
+## CRUD - Create Read Update Delete
+
+In [tutorial one ](/tutorials/first-steps), you built a simple API where you hard coded the results for HTTP methods. 
 
 For example:  `app.MapGet("/todo", () => new { Item = "Water plants", Complete = "false" });`  has been hard coded to return the JSON results below.
 
@@ -12,18 +13,20 @@ For example:  `app.MapGet("/todo", () => new { Item = "Water plants", Complete =
 }
 ```
 
-In checklist 3 we are going to step it up a notch and create something dynamic. Instead of returning a static item that is hardcoded to our route, we are going to be creating to-do list we can update, create new items, mark an item as complete and delete an item. 
+In tutorial 3, we are going to step it up a notch and create something dynamic. Instead of returning a static item that is hardcoded to our route, we are going to be creating to-do list that we can update, create new items, mark an item as complete and delete an item. 
 
-Our to-do APIs is going to:
+Our to-do API will be a CRUD app, and will be able to to:
 - Create a new item.➕
 - Return a specific item on a list.  :leftwards_arrow_with_hook:
 - Update an existing item. :arrows_counterclockwise:
 - Delete an item. ➖
 
 
-Create a class that models the data we want to collect aka Data model. The code for your `TodoItem` will go after `app.Run();`
 
 **Create a data model** 
+
+Create a class that models the data we want to collect, also known as a data model. Place the code for your `TodoItem` underneath `app.Run();`
+
 ```cs
 class TodoItem
 {
@@ -33,13 +36,13 @@ class TodoItem
 
 }
 ```
-Now, that we have defined that data we want to collect we need to save it. 
+Now that we have defined that data we want to collect, we need to save it somewhere to be used in the future. 
 
 **Store an item** 
 
-To store the items in the to do list we are going need to install  the Entity Frameworkcore InMemomry package below.
+To store items into our todo list, we need to install the Entity Frameworkcore InMemomry package below.
 
-> *What is Entity Framework?*  is a code library that enables the transfer of data stored in relational database tables(E.g. SQLite and MySQL, SQL server etc) into objects that are more commonly used in application code. 
+> *Entity Framework?*  is a code library that enables the transfer of data stored in relational database tables(E.g. SQLite and MySQL, SQL server etc) into objects that are more commonly used in application code. 
 
 
 **Using .NET CLI**
@@ -56,7 +59,7 @@ Now, that we have EntityFramework we can now wire up our code to the data we wan
 - Expose our `Todos` property from our list of `TodoItem` in the database.
 - `UseInMemoryDatabase` wires the in memory database storage.This will store data as long the app is running.
 
-To setup your in memory database add the following code snippets to our code.
+To setup your in memory database, add the following code snippets to our code:
 
 **Snippet 1** : Below the `TodoItem` create a `TodoDb` class 
 
@@ -81,7 +84,7 @@ builder.Services.AddDbContext<TodoDb>(options => options.UseInMemoryDatabase("it
 ```
 **Return a list of items** 
 
-To read from a list of items in the todo list replace  the "/todo" route with the "/todos" route below. 
+To read from a list of items in the todo list replace  the `/todo` route with the `/todos` route below. 
 
  ``` cs
  app.MapGet("/todos", async (TodoDb db) => await db.Todos.ToListAsync());

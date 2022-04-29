@@ -1,4 +1,4 @@
-# Tutorial One: CRUD 101
+# Tutorial One: Minimal APIs 101
 
 ## Getting started
 

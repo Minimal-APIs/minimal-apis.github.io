@@ -73,7 +73,7 @@ module.exports = {
         {
           title: "Tutorials",
           collapsable: false,
-          children: ["", "first-steps", "crud", "databases"],
+          children: ["", "first-steps", "crud", "databases", "secure-your-app"],
         },
         
       ],

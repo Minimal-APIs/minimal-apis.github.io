@@ -78,12 +78,13 @@ app.MapGet("secured-route", () => "Hello, you are authorized to see this!")
 ```
 ### Create and verify JWT tokens
 
+A JSON Web Token (JWT) is a way of transferring information as a JSON object. Before you add authentication and authorization to your application, you will want to have a way to create the token that the user will pass to the server to authenticate its identity, and a way for your server to authorize the user based on the contents of that token.
+
+A detailed tutorial on setting up your own discrete server for issuing and verifying JWT tokens is in progress. In the meantime, look at 
+
 
 ### Securing our app with JWT Bearer Authentication
 
-
-
-By adding the `[Authorize]` attribute to an action or route, accessing the resource will require the HTTP request to be authenticated. 
 
 In [Tutorial 2](crud.md), we allow users to CREATE, READ, UPDATE, and DELETE using our app. Let's say we want to stil let all users READ, but restrict access to the CREATE endpoint to only authorized requests. In other words, only users who are authenticated can make new todos. Add the attribute to the `/todos` endpoint, as in the code below.
 
@@ -99,17 +100,17 @@ app.MapPost("/todos", [Authorize] async (TodoDb db, TodoItem todo) =>
 
 ```
 
-Let's go ahead and start out API. Call this endpoint without providing a valid `access_token` in the `Authorization` header, like:
+Let's go ahead and start our API. Call this endpoint without providing a valid `access_token` in the `Authorization` header, like:
 
 ```
 curl -X 'POST' \
   'http://localhost:[YOUR_PORT_NAME]/todos' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
-  --header 'Authorization: Bearer [INVALID_TOKEN] \
+  --header 'Authorization: Bearer [INVALID_TOKEN]' \
   -d '{
-  "id": 0,
-  "item": "string",
+  "id": 1,
+  "item": "Buy groceries",
   "isComplete": true
 }'
 ```
@@ -131,11 +132,6 @@ Now try that same request with a valid token in the `Authorization` header. You 
     "id": 1,
     "item": "Buy groceries",
     "isComplete": true
-  },
-  {
-    "id": 2,
-    "item": "Water plants",
-    "isComplete": false
   }
 ]
 ```

@@ -1,6 +1,6 @@
 [![deploy to gh-pages](https://github.com/Minimal-APIs/minimal-apis.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/Minimal-APIs/minimal-apis.github.io/actions/workflows/deploy.yml)
 
-# minimal.github.io
+# minimal-apis.github.io
 
 Tutorials and samples for minimal APIs.
 

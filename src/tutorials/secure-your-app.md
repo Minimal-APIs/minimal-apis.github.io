@@ -80,8 +80,63 @@ app.MapGet("secured-route", () => "Hello, you are authorized to see this!")
 
 A JSON Web Token (JWT) is a way of transferring information as a JSON object. Before you add authentication and authorization to your application, you will want to have a way to create the token that the user will pass to the server to authenticate its identity, and a way for your server to authorize the user based on the contents of that token.
 
-A detailed tutorial on setting up your own discrete server for issuing and verifying JWT tokens is in progress. In the meantime, look at 
+In order to create and verify JWTs, use the `dev-jwts` command-line interface (CLI) tool which can be found [here](https://github.com/DamianEdwards/AspNetCoreDevJwts). 
 
+Run the `dev-jwts` exe to print the CLI help:
+
+```
+AspNetCoreDevJwts\SampleWebApi> .\DevJwts.Cli\bin\Debug\net7.0\dev-jwts.exe
+USAGE:
+dev-jwts [OPTIONS] <COMMAND>
+
+EXAMPLES:
+    dev-jwts create
+    dev-jwts create -n testuser --claim scope=myapi:read
+    dev-jwts list
+    dev-jwts delete caa676ee
+    dev-jwts clear
+
+OPTIONS:
+    -h, --help       Prints help information
+    -v, --version    Prints version information
+
+COMMANDS:
+    list      Lists all JWTs for the specified project
+    create    Creates a JWT for the specified project
+    print     Prints the details of the specified JWT
+    delete    Deletes the JWT with the specified ID in the specified project
+    clear     Deletes all JWTs for the specified project
+    key       Prints the key used for signing JWTs for the specified project
+
+```
+
+Run the dev-jwts exe to print the CLI help:
+
+```
+AspNetCoreDevJwts\SampleWebApi> .\DevJwts.Cli\bin\Debug\net7.0\dev-jwts.exe
+USAGE:
+dev-jwts [OPTIONS] <COMMAND>
+
+EXAMPLES:
+    dev-jwts create
+    dev-jwts create -n testuser --claim scope=myapi:read
+    dev-jwts list
+    dev-jwts delete caa676ee
+    dev-jwts clear
+
+OPTIONS:
+    -h, --help       Prints help information
+    -v, --version    Prints version information
+
+COMMANDS:
+    list      Lists all JWTs for the specified project
+    create    Creates a JWT for the specified project
+    print     Prints the details of the specified JWT
+    delete    Deletes the JWT with the specified ID in the specified project
+    clear     Deletes all JWTs for the specified project
+    key       Prints the key used for signing JWTs for the specified project
+
+```
 
 ### Securing our app with JWT Bearer Authentication
 

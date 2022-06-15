@@ -65,7 +65,7 @@ Under where you built your app using `var app = builder.Build();`, add the middl
 ```
 // Add the authentication and authorization middleware
 app.UseAuthentication();
-app.UseAuthoriziation();
+app.UseAuthorization();
 ```
 
 > These lines of code must be included in the right order i.e. the authentication middleware must be included before the authorization middleware in order for the API to be successfully protected.
@@ -76,7 +76,63 @@ Finally, you will want to add authorization configuration to the API. On the rou
 app.MapGet("secured-route", () => "Hello, you are authorized to see this!")
     .RequireAuthorization();
 ```
+### Create and verify JWT tokens
+
+A JSON Web Token (JWT) is a way of transferring information as a JSON object. Before you add authentication and authorization to your application, you will want to have a way to create the token that the user will pass to the server to authenticate its identity, and a way for your server to authorize the user based on the contents of that token.
+
+A detailed tutorial on setting up your own discrete server for issuing and verifying JWT tokens is in progress. In the meantime, look at 
+
 
 ### Securing our app with JWT Bearer Authentication
 
+
+In [Tutorial 2](crud.md), we allow users to CREATE, READ, UPDATE, and DELETE using our app. Let's say we want to stil let all users READ, but restrict access to the CREATE endpoint to only authorized requests. In other words, only users who are authenticated can make new todos. Add the attribute to the `/todos` endpoint, as in the code below.
+
+```
+
+//post method
+app.MapPost("/todos", [Authorize] async (TodoDb db, TodoItem todo) =>
+{
+    await db.Todos.AddAsync(todo);
+    await db.SaveChangesAsync();
+    return Results.Created($"/todo/{todo.Id}", todo);
+});
+
+```
+
+Let's go ahead and start our API. Call this endpoint without providing a valid `access_token` in the `Authorization` header, like:
+
+```
+curl -X 'POST' \
+  'http://localhost:[YOUR_PORT_NAME]/todos' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  --header 'Authorization: Bearer [INVALID_TOKEN]' \
+  -d '{
+  "id": 1,
+  "item": "Buy groceries",
+  "isComplete": true
+}'
+```
+
+We will fail with the following error: 
+
+```
+{
+  "error": "invalid_token",
+  "error_description": "This request requires a valid JWT access token to be provided"
+}
+```
+
+Now try that same request with a valid token in the `Authorization` header. You should have been able to POST the item successfully and received a `Response body` which includes the item you just added.
+
+```
+[
+  {
+    "id": 1,
+    "item": "Buy groceries",
+    "isComplete": true
+  }
+]
+```
 

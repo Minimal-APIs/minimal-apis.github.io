@@ -441,7 +441,7 @@ Microsoft.AspNetCore.Http.BadHttpRequestException: Failed to bind parameter "int
 ### Wildcards/Catch all routes
 
 ```csharp
-app.MapGet("/posts/{rest*}", (string rest) => $"Routing to {rest}");
+app.MapGet("/posts/{*rest}", (string rest) => $"Routing to {rest}");
 ```
 
 ### Route constraints

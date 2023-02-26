@@ -1,6 +1,6 @@
 # What are minimal APIs?
 
-Minimal APIs are a clean and straightforward way to build small microservices and HTTP APIs in ASP.NET Core. No complicated scaffolding, no unnecessary dependencies. Minimal APIs hook into ASP.NET Core’s hosting and routing capabilities and allow you to create fully functioning APIs with just a few lines of code.
+Minimal APIs are a simplified approach for building fast HTTP APIs with ASP.NET Core. You can create fully functioning REST endpoints with minimal code and configuration.
 
 ```csharp
 var app = WebApplication.Create(args);
